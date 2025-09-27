@@ -1,11 +1,24 @@
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+   // Motion variants for the sliding panel
+  const panelVariants = {
+    hidden: { height: 0, opacity: 0 },
+    visible: { height: "100vh", opacity: 1 },
+  };
+
+  // Motion variants for the overlay
+  const overlayVariants = {
+    hidden: { opacity: 0, pointerEvents: "none" },
+    visible: { opacity: 0.5, pointerEvents: "auto" },
+  };
 
   return (
     <div className="px-2 pe-4 py-2 bg-[#e6ded3]">
@@ -85,58 +98,75 @@ const Navbar = () => {
       </div>
 
       {/* nav links for smaller screen */}
-      <div>
-        {/* Overlay */}
-        <div
-          className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-500 ${
-            openMenu ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-          onClick={() => setOpenMenu(false)} // close when clicking background
-        />
+        <div>
+      <AnimatePresence>
+        {openMenu && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              className="fixed inset-0 bg-black z-40"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={overlayVariants}
+              transition={{ duration: 0.3 }}
+              onClick={() => setOpenMenu(false)}
+            />
 
-        {/* Sliding Panel */}
-        <div
-          className={`fixed top-0 left-0 w-full overflow-hidden bg-white z-50 transition-all duration-500 shadow-lg ${
-            openMenu ? "max-h-screen" : "max-h-0"
-          }`}
-        >
-          <div className="p-6">
-            <div className="relative flex items-center justify-between -top-3">
-              <X
-                onClick={() => setOpenMenu(false)}
-                className="cursor-pointer mb-4 absolute -right-4 top-0.5"
-                size={16}
-              />
-            </div>
-            <nav className="flex flex-col gap-4 items-center">
-              <div className="sm:hidden flex flex-col gap-4 items-center">
-                <Link
-                  to="/profile"
-                  className="cursor-pointer hover:font-semibold"
-                >
-                  Profile
-                </Link>
-                <Link className="cursor-pointer hover:font-semibold">
-                  Wishlist
-                </Link>
-                <Link className="cursor-pointer hover:font-semibold">Cart</Link>
+            {/* Sliding Panel */}
+            <motion.div
+              className="fixed top-0 left-0 w-full bg-white z-50 shadow-lg overflow-hidden"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={panelVariants}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <div className="p-6">
+                <div className="relative flex items-center justify-end">
+                  <X
+                    onClick={() => setOpenMenu(false)}
+                    className="cursor-pointer"
+                    size={24}
+                  />
+                </div>
+                <nav className="flex flex-col gap-4 items-center mt-4">
+                  <div className="sm:hidden flex flex-col gap-4 items-center">
+                    <Link
+                      to="/profile"
+                      className="cursor-pointer hover:font-semibold"
+                      onClick={() => setOpenMenu(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link to="/wishlist" className="cursor-pointer hover:font-semibold" onClick={() => setOpenMenu(false)}>
+                      Wishlist
+                    </Link>
+                    <Link
+                      to="/cart"
+                      className="cursor-pointer hover:font-semibold"
+                      onClick={() => setOpenMenu(false)}
+                    >
+                      Cart
+                    </Link>
+                  </div>
+                  <Link to="/" className="cursor-pointer hover:font-semibold" onClick={() => setOpenMenu(false)}>Home</Link>
+                  <Link to="/shop" className="cursor-pointer hover:font-semibold" onClick={() => setOpenMenu(false)}>Shop</Link>
+                  <Link
+                    to="/about"
+                    className="cursor-pointer hover:font-semibold"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    About us
+                  </Link>
+                  <Link to="/contact" className="cursor-pointer hover:font-semibold" onClick={() => setOpenMenu(false)}>Contact</Link>
+                </nav>
               </div>
-              <Link className="cursor-pointer hover:font-semibold">Home</Link>
-              <Link className="cursor-pointer hover:font-semibold">
-                Elements
-              </Link>
-              <Link className="cursor-pointer hover:font-semibold">Shop</Link>
-              <Link className="cursor-pointer hover:font-semibold">
-                About us
-              </Link>
-              <Link className="cursor-pointer hover:font-semibold">Blog</Link>
-              <Link className="cursor-pointer hover:font-semibold">
-                Contact
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
     </div>
   );
 };

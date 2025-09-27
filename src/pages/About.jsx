@@ -2,10 +2,10 @@ const About = () => {
   return (
     <>
       {/* section 1 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-10" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-10 pt-5 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Our Story
           </span>
           {/* <span className='heading text-[35px] font-semibold -mt-[15px]'>Boutique</span> */}
@@ -31,28 +31,28 @@ const About = () => {
           </button> */}
         </div>
         {/* right */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
       </div>
 
       {/* section 2 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-10" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col-reverse items-center justify-evenly md:pt-10 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
         {/* right */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Our Vision
           </span>
           <p className="text-gray-500 mb-4">
@@ -65,10 +65,10 @@ const About = () => {
       </div>
 
       {/* section 3 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-10" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-10 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Our Mission
           </span>
           <div className="text-gray-500 mb-4">
@@ -92,28 +92,28 @@ const About = () => {
           </div>
         </div>
         {/* right */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
       </div>
 
       {/* section 4 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-10" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col-reverse items-center justify-evenly md:pt-20 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
         {/* right */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Our Values
           </span>
           <p className="text-gray-500 mb-4">
@@ -140,10 +140,10 @@ const About = () => {
       </div>
 
       {/* section 5 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-10" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-20 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Why We Exist
           </span>
           <p className="text-gray-500 mb-4">
@@ -156,28 +156,28 @@ const About = () => {
           </p>
         </div>
         {/* right */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
       </div>
 
       {/* section 6 */}
-      <div className="flex items-center justify-evenly h-[70vh] pt-20 px-10 gap-10 mb-20" data-aos="fade-up" data-aos-duration='1500'>
+      <div className="flex md:flex-row flex-col-reverse items-center justify-evenly md:pt-20 md:px-10 px-5 md:gap-10 gap-5 mb-20" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <img
             src="https://cdn.mos.cms.futurecdn.net/BFnyKoHvoYtAnLjJE7tiji.jpg"
             alt="closet"
-            className="h-[300px] rounded-[30px]"
+            className="h-[300px] rounded-[20px]"
           />
         </div>
         {/* right */}
-        <div className="w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] italiana-regular">
+        <div className="md:w-1/2 flex flex-col items-start">
+          <span className="cursive text-[50px] playfair">
             Closing Note
           </span>
           <p className="text-gray-500 mb-4">

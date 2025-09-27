@@ -10,6 +10,7 @@ import Cart from "./Cart";
 import Profile from "./Profile";
 import Settings from "../components/profile/Settings";
 import OrderHistory from "../components/profile/OrderHistory";
+import Checkout from "./Checkout";
 
 const Layout = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const Layout = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<Profile />}>
             <Route path="settings" element={<Settings />} />
             <Route path="order-history" element={<OrderHistory />} />
