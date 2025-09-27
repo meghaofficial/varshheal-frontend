@@ -1,0 +1,17 @@
+.heading{
+      font-family: "Libre Baskerville", serif;
+  font-weight: bolder;
+}
+
+.range-slider{
+  height: 8px !important;
+}
+
+.range-slider__thumb{
+  height: 12px !important;
+  width: 12px !important;
+}
+
+body {
+  font-family: "Joliet", sans-serif;
+}
