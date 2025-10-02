@@ -5,7 +5,7 @@ const About = () => {
       <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-10 pt-5 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px] ms-[-5px]">
             Our Story
           </span>
           {/* <span className='heading text-[35px] font-semibold -mt-[15px]'>Boutique</span> */}
@@ -52,7 +52,7 @@ const About = () => {
         </div>
         {/* right */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Our Vision
           </span>
           <p className="text-gray-500 mb-4">
@@ -68,27 +68,27 @@ const About = () => {
       <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-10 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Our Mission
           </span>
           <div className="text-gray-500 mb-4">
-            <li>
+            <p>
               To empower women artisans by showcasing their creations with
               dignity and love.
-            </li>
-            <li>
+            </p>
+            <p>
               To honor craftsmanship as a divine expression—an offering of
               devotion and creativity.
-            </li>
-            <li>
+            </p>
+            <p>
               To bridge hearts—connecting conscious buyers with soulful
               creators, ensuring every purchase becomes a blessing for both.
-            </li>
-            <li>
+            </p>
+            <p>
               To build sustainability with empathy, ensuring women can earn from
               their own skills while preserving the authenticity of handcrafted
               traditions.
-            </li>
+            </p>
           </div>
         </div>
         {/* right */}
@@ -113,26 +113,26 @@ const About = () => {
         </div>
         {/* right */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Our Values
           </span>
-          <p className="text-gray-500 mb-4">
+          {/* <p className="text-gray-500">
             Faith in Shree Ji - Our work is rooted in divine blessings and
             guided by grace.
-          </p>
-          <p className="text-gray-500 mb-4">
+          </p> */}
+          <p className="text-gray-500">
             Creativity with Purpose - Every creation carries not only beauty but
             also meaning.
           </p>
-          <p className="text-gray-500 mb-4">
+          <p className="text-gray-500">
             Dignity & Empowerment - We celebrate women not as helpless, but as
             creators of their destiny.
           </p>
-          <p className="text-gray-500 mb-4">
+          <p className="text-gray-500">
             Love in Every Thread - Handmade means heart-made, carrying emotions
             beyond commerce.
           </p>
-          <p className="text-gray-500 mb-4">
+          <p className="text-gray-500">
             Community & Compassion - Together, we rise, not as individuals, but
             as a family of creators and supporters.
           </p>
@@ -143,7 +143,7 @@ const About = () => {
       <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-20 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Why We Exist
           </span>
           <p className="text-gray-500 mb-4">
@@ -177,7 +177,7 @@ const About = () => {
         </div>
         {/* right */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Closing Note
           </span>
           <p className="text-gray-500 mb-4">
@@ -185,7 +185,7 @@ const About = () => {
             and to all women who create beauty even in the simplest of moments.
           </p>
           <p className="text-gray-500 mb-4">
-            At varshheal23, when you hold a handcrafted piece, you are not just
+            At vaRshheal23, when you hold a handcrafted piece, you are not just
             buying—you are blessing. You are carrying with love, faith, and the
             power of a woman's hands. "Handmade with love. Carried with
             devotion. Cherished for life."

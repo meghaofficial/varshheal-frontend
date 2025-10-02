@@ -13,7 +13,7 @@ const Home = () => {
       <BannerVideo />
 
       {/* our amazing features */}
-      <div className="flex lg:flex-row flex-col items-center justify-between lg:gap-20 gap-5 lg:my-16 my-20 px-4">
+      {/* <div className="flex lg:flex-row flex-col items-center justify-between lg:gap-20 gap-5 lg:my-16 my-20 px-4">
         <div
           className="flex lg:flex-row flex-row-reverse items-center gap-5 lg:w-[30%] w-full"
           style={{ justifyContent: "start" }}
@@ -49,12 +49,12 @@ const Home = () => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* remember your last one */}
-      <div className="bg-gradient-to-r from-[#faf9f7] to-transparent w-full relative h-[250px] md:block hidden">
+      <div className="bg-gradient-to-r from-[#faf9f7] to-transparent w-full relative h-[300px] md:block hidden mt-20">
         <div className="bg-[#f6f3ee] rounded-r-full h-full w-[300px] p-10"></div>
-        <div className="flex flex-col gap-2 absolute top-0 left-[200px] p-10">
+        <div className="flex flex-col gap-2 absolute top-8 left-[200px] p-10">
           <span className="text-gray-500 text-sm">Remember Your Last One</span>
           <span className="lg:text-[30px] md:text-[20px] text-nowrap heading font-extrabold">
             Gift Ideas That Last Longer
@@ -74,7 +74,7 @@ const Home = () => {
         </div>
       </div>
       {/* remember your last one for smaller screens */}
-      <div className="bg-gradient-to-r from-[#faf9f7] to-transparent w-full relative h-[280px] md:hidden mb-[300px]">
+      <div className="bg-gradient-to-r from-[#faf9f7] to-transparent w-full relative h-[280px] md:hidden mb-[300px] mt-20">
         <div className="bg-[#f6f3ee] rounded-r-full h-full w-[150px] p-10"></div>
         <div className="flex flex-col gap-2 absolute top-0 left-[50px] p-10">
           <span className="text-gray-500 text-sm">Remember Your Last One</span>

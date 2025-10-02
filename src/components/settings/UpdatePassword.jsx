@@ -30,16 +30,16 @@ const UpdatePassword = () => {
           }`}
           onClick={() => setActiveTab(1)}
         >
-          Through Email or Phone <FaExternalLinkAlt size={10} />
+          Through Email <FaExternalLinkAlt size={10} />
         </p>
-        <p
+        {/* <p
           className={`flex items-center gap-2 cursor-pointer hover:underline ${
             activeTab === 2 ? "text-black underline" : "text-blue-500"
           }`}
           onClick={() => setActiveTab(2)}
         >
           Through Phone <FaExternalLinkAlt size={10} />
-        </p>
+        </p> */}
       </div>
       {/* right */}
       <div className="w-[70%] bg-[#F1EAE2]">

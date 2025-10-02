@@ -2,11 +2,13 @@ import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux"
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
 
    // Motion variants for the sliding panel
   const panelVariants = {
@@ -83,7 +85,7 @@ const Navbar = () => {
             </span>
             <ShoppingBag size={16} />
           </div>
-          <Link to="/profile" className="sm:block hidden cursor-pointer">
+          <Link to={isAuthenticated ? "/profile" : "/auth"} className="sm:block hidden cursor-pointer">
             <User size={16} />
           </Link>
           {/* hamburger for sm screen */}
@@ -133,7 +135,7 @@ const Navbar = () => {
                 <nav className="flex flex-col gap-4 items-center mt-4">
                   <div className="sm:hidden flex flex-col gap-4 items-center">
                     <Link
-                      to="/profile"
+                      to={isAuthenticated ? "/profile" : "/auth"}
                       className="cursor-pointer hover:font-semibold"
                       onClick={() => setOpenMenu(false)}
                     >

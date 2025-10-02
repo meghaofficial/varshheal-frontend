@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import Settings from "../components/profile/Settings";
 import OrderHistory from "../components/profile/OrderHistory";
 import Checkout from "./Checkout";
+import Auth from "./Auth";
 
 const Layout = () => {
   const location = useLocation();
@@ -21,24 +22,9 @@ const Layout = () => {
         location.pathname === "/contact" && "bg-[#F9F9F9]"
       }`}
     >
-      <div
-        // className={`${
-        //   (
-        //     !location.pathname.includes("shop") &&
-        //     location.pathname !== "/profile" &&
-        //     !location.pathname.includes("profile")
-        //   ) &&
-        //   "px-4"
-        // } ${location.pathname.includes("profile") ? "pt-2" : "py-2"} `}
-      >
+      <div>
         <div
-          // className={`${
-          //   (
-          //   location.pathname.includes("shop") ||
-          //   location.pathname.includes("profile")
-          //   ) &&
-          //   "px-4"
-          // }`}
+          className={`${(location.pathname.includes("auth") || location.pathname.includes("signup")) && 'hidden'}`}
         >
           <Navbar />
         </div>
@@ -51,6 +37,7 @@ const Layout = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />}>
             <Route path="settings" element={<Settings />} />
             <Route path="order-history" element={<OrderHistory />} />
@@ -58,7 +45,7 @@ const Layout = () => {
           <Route path="*" element={<About />} />
         </Routes>
       </div>
-      <div className={`${location.pathname === "/" && "mt-28"}`}>
+      <div className={`${location.pathname === "/" && "mt-28"} ${location.pathname.includes("auth") && 'hidden'}`}>
         <Footer />
       </div>
     </div>
