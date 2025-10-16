@@ -85,7 +85,7 @@ const Navbar = () => {
             </span>
             <ShoppingBag size={16} />
           </div>
-          <Link to={isAuthenticated ? "/profile" : "/auth"} className="sm:block hidden cursor-pointer">
+          <Link to={isAuthenticated ? "/account" : "/auth"} className="sm:block hidden cursor-pointer">
             <User size={16} />
           </Link>
           {/* hamburger for sm screen */}
@@ -135,7 +135,7 @@ const Navbar = () => {
                 <nav className="flex flex-col gap-4 items-center mt-4">
                   <div className="sm:hidden flex flex-col gap-4 items-center">
                     <Link
-                      to={isAuthenticated ? "/profile" : "/auth"}
+                      to={isAuthenticated ? "/account" : "/auth"}
                       className="cursor-pointer hover:font-semibold"
                       onClick={() => setOpenMenu(false)}
                     >
