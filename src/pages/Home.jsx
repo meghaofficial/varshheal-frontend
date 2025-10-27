@@ -4,6 +4,8 @@ import LatestOfferComp from "../components/LatestOfferComp";
 import Button from "../components/Button";
 import BannerSlider from "../components/BannerSlider";
 import BannerVideo from "../components/BannerVideo";
+import Loader from "../components/Loader";
+import { toastError, toastSuccess } from "../utils/toast";
 
 const Home = () => {
   return (

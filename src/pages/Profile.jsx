@@ -25,10 +25,16 @@ const Profile = () => {
 
   const logout = async () => {
     try {
-      await axiosPrivate.post("/logout");
-      dispatch(clearUser());
-      window.google.accounts.id.disableAutoSelect();
-      navigate("/");
+      const token = localStorage.getItem("token");
+      if (token) {
+        localStorage.removeItem("token");
+        dispatch(clearUser());
+      } else {
+        await axiosPrivate.post("/logout");
+        dispatch(clearUser());
+        window.google.accounts.id.disableAutoSelect();
+      }
+      // navigate("/");
     } catch (err) {
       console.error("Logout failed:", err);
     }

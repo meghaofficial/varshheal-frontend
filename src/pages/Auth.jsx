@@ -10,6 +10,10 @@ import { Eye, EyeOff, MoveLeft } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa";
 import OtpInput from "../components/OtpInput";
 import Login from "../components/Login";
+import { useEffect } from "react";
+import { useRef } from "react";
+import Loader from "../components/Loader";
+import { toastError, toastSuccess } from "../utils/toast";
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -17,12 +21,17 @@ export default function Auth() {
   const [error, setError] = useState(null);
   const [showPwd, setShowPwd] = useState(false);
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
     password: "",
   });
   const [rightSlider, setRightSlider] = useState("");
   const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const ws = useRef(null);
+  const [disableVerifyBtn, setDisableVerifyBtn] = useState(true);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [isValidOtp, setIsValidOtp] = useState(false);
 
   const handleResponse = async (credentialResponse) => {
     try {
@@ -33,38 +42,151 @@ export default function Auth() {
         credential: googleIdToken,
       });
 
-      // Axios response
       const data = res.data;
-      dispatch(setUser(data.user));
 
-      navigate("/"); // redirect after updating state
+      // if backend explicitly returns success = false
+      if (data?.success === false) {
+        toastError(data.message || "Something went wrong");
+        return;
+      }
+
+      // success case
+      dispatch(setUser(data.user));
+      navigate("/");
     } catch (err) {
-      console.error("Auth failed:", err.response?.data || err.message);
+      // handle server or network errors properly
+      const errorMsg =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||
+        "Something went wrong";
+      toastError(errorMsg);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // if (!formData.fullname) {
-    //   setError((prev) => ({
-    //     ...prev,
-    //     fullname: "Full name is required.",
-    //   }));
-    // }
-    // if (!formData.email) {
-    //   setError((prev) => ({
-    //     ...prev,
-    //     email: "Email is required.",
-    //   }));
-    // }
-    // if (!formData.password) {
-    //   setError((prev) => ({
-    //     ...prev,
-    //     password: "Password is required.",
-    //   }));
-    // }
-    setRightSlider("otp");
+  // GO TO HELL
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const copySignupInfo = { ...formData };
+    copySignupInfo[name] = value;
+    setFormData(copySignupInfo);
+    setError((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name) {
+      setError((prev) => ({
+        ...prev,
+        name: "Full name is required.",
+      }));
+    }
+    if (!formData.email) {
+      setError((prev) => ({
+        ...prev,
+        email: "Email is required.",
+      }));
+    }
+    if (!formData.password) {
+      setError((prev) => ({
+        ...prev,
+        password: "Password is required.",
+      }));
+    }
+    if (error.name || error.email || error.password) return;
+    setIsLoading(true);
+    const { email } = formData;
+    try {
+      // Register email in WebSocket so server knows which client to send OTP
+      if (ws.current?.readyState === WebSocket.OPEN) {
+        ws.current.send(JSON.stringify({ type: "REGISTER", email }));
+      } else {
+        console.warn("WebSocket not ready, retrying signup anyway");
+      }
+
+      // Trigger signup API (this will generate + send OTP)
+      const { data } = await axiosPrivate.post("/signup", formData);
+      const { success, message } = data;
+
+      if (success) {
+        toastSuccess(message);
+        setRightSlider("otp");
+      } else {
+        toastError(message);
+      }
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        setFormData((prev) => ({ ...prev, email: "" }));
+        toastError(error.response.data.message || "Something went wrong.");
+        return;
+      } else {
+        toastError("Something went wrong. Please try again later.");
+        return;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const wsf = new WebSocket("http://localhost:8000/api/auth");
+    ws.current = wsf;
+
+    wsf.onopen = () => {
+      console.log("✅ WebSocket connected");
+    };
+
+    wsf.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "OTP_SENT") {
+      }
+    };
+
+    wsf.onclose = () => console.log("❌ WebSocket closed");
+
+    return () => wsf.close();
+  }, []);
+
+  const handleVerify = async () => {
+    if (disableVerifyBtn) return;
+    setOtpLoading(true);
+    try {
+      const response = await axiosPrivate.post("/signup/verify", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        otp,
+      });
+
+      if (response.data.success) {
+        setOtp("");
+        setIsValidOtp(true);
+        toastSuccess("Signup successful");
+      } else {
+        setIsValidOtp(false);
+        toastError(response.data.message || "Invalid OTP");
+      }
+    } catch (error) {
+      console.error(error);
+      toastError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (otp.length >= 6) setDisableVerifyBtn(false);
+    else setDisableVerifyBtn(true);
+  }, [otp]);
+
+  useEffect(() => {
+    if (isValidOtp) setRightSlider("login");
+  }, [isValidOtp]);
 
   return (
     <div className="flex items-center">
@@ -104,21 +226,13 @@ export default function Auth() {
                   <input
                     type="text"
                     className="outline-none p-3 border-b border-gray-200"
-                    value={formData?.fullname}
-                    onChange={(e) => {
-                      setFormData((prev) => ({
-                        ...prev,
-                        fullname: e.target.value,
-                      }));
-                      setError((prev) => ({
-                        ...prev,
-                        fullname: "",
-                      }));
-                    }}
+                    name="name"
+                    value={formData?.name}
+                    onChange={handleChange}
                   />
-                  {error?.fullname && (
+                  {error?.name && (
                     <p className="text-red-500 italic text-[10px]">
-                      {error.fullname}
+                      {error.name}
                     </p>
                   )}
                 </div>
@@ -132,16 +246,8 @@ export default function Auth() {
                     type="email"
                     className="outline-none p-3 border-b border-gray-200"
                     value={formData?.email}
-                    onChange={(e) => {
-                      setFormData((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }));
-                      setError((prev) => ({
-                        ...prev,
-                        email: "",
-                      }));
-                    }}
+                    onChange={handleChange}
+                    name="email"
                   />
                   {error?.email && (
                     <p className="text-red-500 italic text-[10px]">
@@ -159,16 +265,8 @@ export default function Auth() {
                     type={showPwd ? "text" : "password"}
                     className="outline-none p-3 border-b border-gray-200"
                     value={formData?.password}
-                    onChange={(e) => {
-                      setFormData((prev) => ({
-                        ...prev,
-                        password: e.target.value,
-                      }));
-                      setError((prev) => ({
-                        ...prev,
-                        password: "",
-                      }));
-                    }}
+                    onChange={handleChange}
+                    name="password"
                   />
                   {/* eye */}
                   <div
@@ -193,11 +291,17 @@ export default function Auth() {
                 </div>
 
                 <div className="w-full flex items-center justify-center">
-                  <input
-                    type="submit"
-                    className="cursor-pointer bg-black text-white m-auto hover:bg-black/80 py-2 px-5 mt-6"
-                    value="Send OTP"
-                  />
+                  {isLoading ? (
+                    <div className="bg-black py-2 px-5 w-[100px] flex items-center justify-center mt-5">
+                      <Loader height={20} width={20} fill="#fff" bg="#000" />
+                    </div>
+                  ) : (
+                    <input
+                      type="submit"
+                      className="cursor-pointer bg-black text-white m-auto hover:bg-black/80 py-2 px-5 mt-5"
+                      value="Send OTP"
+                    />
+                  )}
                 </div>
 
                 <p
@@ -213,17 +317,36 @@ export default function Auth() {
                 <div className="w-full flex items-center justify-start ps-10 mb-10">
                   <div
                     className="p-2 cursor-pointer w-fit border rounded group hover:bg-black"
-                    onClick={() => setRightSlider("")}
+                    onClick={() => {
+                      setRightSlider("");
+                      setOtp("");
+                    }}
                   >
                     <FaArrowLeft className="group-hover:text-white" />
                   </div>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
                   <label>Enter OTP</label>
                   <OtpInput otp={otp} setOtp={setOtp} />
-                  <button className="cursor-pointer bg-black text-white m-auto hover:bg-black/80 py-2 px-5 mt-6">
-                    Verify
-                  </button>
+                  {otpLoading ? (
+                    <div className="bg-black py-2 px-5 w-[80px] flex items-center justify-center mt-5">
+                      <Loader height={20} width={20} fill="#fff" bg="#000" />
+                    </div>
+                  ) : (
+                    <button
+                      className={`${
+                        disableVerifyBtn
+                          ? "bg-black/80"
+                          : "cursor-pointer hover:bg-black/80"
+                      } text-white bg-black m-auto py-2 px-5 mt-5`}
+                      onClick={handleVerify}
+                    >
+                      Verify
+                    </button>
+                  )}
+                  <p className="italic text-gray-500 text-[10px] text-center mt-3">
+                    This OTP will be valid till 60sec
+                  </p>
                 </div>
               </div>
 

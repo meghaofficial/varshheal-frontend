@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useDispatch } from "react-redux";
 import { checkAuth } from "./utils/checkAuth";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
       <Layout />
+      <ToastContainer />
     </>
   );
 }
