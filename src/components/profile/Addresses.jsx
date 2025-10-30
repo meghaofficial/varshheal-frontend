@@ -5,6 +5,7 @@ import AddAddressForm from "./AddAddressForm";
 import axiosPrivate from "../../utils/axiosPrivate";
 import { useSelector } from "react-redux";
 import { toastError, toastSuccess } from "../../utils/toast";
+import Loader from "../Loader";
 
 const Addresses = () => {
   const [addressList, setAddressList] = useState([]);
@@ -13,7 +14,7 @@ const Addresses = () => {
   const [innerEditOpt, setInnerEditOpt] = useState(null);
   const menuRef = useRef(null);
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
-  const [activeAdd, setActiveAdd] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,6 +28,7 @@ const Addresses = () => {
   }, []);
 
   const getAllAddress = async () => {
+    setIsLoading(true);
     try {
       const res = await axiosPrivate.get("/all-address", {
         params: { googleId: user?.id },
@@ -36,6 +38,8 @@ const Addresses = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -44,6 +48,7 @@ const Addresses = () => {
       "Are you sure you want to delete this address?"
     );
     if (confirm) {
+      setIsLoading(true);
       try {
         const res = await axiosPrivate.delete(`/delete-address/${id}`);
         if (res?.data?.success) {
@@ -53,9 +58,10 @@ const Addresses = () => {
       } catch (error) {
         console.error(error);
         toastError(error.response?.data?.message || "Failed to delete address");
+      } finally {
+        setIsLoading(false);
       }
-    }
-    else {
+    } else {
       setEditOpt(null);
       return;
     }
@@ -88,78 +94,87 @@ const Addresses = () => {
       )}
       {/* addresses */}
       <div className="border border-gray-300 rounded mt-5">
-        {addressList?.length > 0 ? (
-          <>
-            {addressList?.map((address, index) =>
-              innerEditOpt?._id === address?._id ? (
-                <div key={index}>
-                  <AddAddressForm
-                    innerEditOpt={innerEditOpt}
-                    setInnerEditOpt={setInnerEditOpt}
-                    setAddressList={setAddressList}
-                    setEditOpt={setEditOpt}
-                  />
-                </div>
-              ) : (
-                <div
-                  className="p-4 border-b border-gray-300 select-none"
-                  key={index}
-                >
-                  <div className="flex items-center justify-between relative">
-                    <p className="rounded bg-gray-200 px-2 py-0.5 text-[11px] text-gray-500 w-fit">
-                      {address?.address_type}
-                    </p>
-                    <div className="relative">
-                      <TbDotsVertical
-                        className="text-gray-500 cursor-pointer"
-                        onClick={() =>
-                          editOpt === index
-                            ? setEditOpt(null)
-                            : setEditOpt(index)
-                        }
-                      />
-                      <div
-                        className={`absolute top-6 right-2 bg-white shadow shadow-gray-400 rounded text-sm transform transition-all duration-300 origin-top-right text-gray-500 ${
-                          editOpt === index
-                            ? "scale-100 opacity-100"
-                            : "scale-0 opacity-0"
-                        }`}
-                        ref={editOpt === index ? menuRef : null}
-                      >
-                        <p
-                          className="px-3 py-1 pt-2 hover:text-black hover:bg-gray-100 cursor-pointer"
-                          onClick={() => setInnerEditOpt(address)}
-                        >
-                          Edit
-                        </p>
-                        <p
-                          className="px-3 py-1 pb-2 hover:text-red-500 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => deleteAddress(address?._id)}
-                        >
-                          Delete
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-sm flex items-center gap-4 font-[500] mt-2">
-                    <p>{address?.name}</p>
-                    <p>{address?.phone}</p>
-                  </div>
-                  <div className="text-sm mt-3">
-                    <span>{address?.address}</span>,{" "}
-                    <span>{address?.locality}</span>,{" "}
-                    <span>{address?.city}</span>, <span>{address?.state}</span>{" "}
-                    - <span className="font-[500]">{address.pincode}</span>
-                  </div>
-                </div>
-              )
-            )}
-          </>
+        {isLoading ? (
+          <div className="py-2 px-5 w-full flex items-center justify-center min-h-[150px]">
+            <Loader height={20} width={20} fill="#000" bg="#fff" />
+          </div>
         ) : (
           <>
-            <div className="flex items-center justify-center min-h-[150px] text-sm">
-              <p>Please add the Address</p>
-            </div>
+            {addressList?.length > 0 ? (
+              <>
+                {addressList?.map((address, index) =>
+                  innerEditOpt?._id === address?._id ? (
+                    <div key={index}>
+                      <AddAddressForm
+                        innerEditOpt={innerEditOpt}
+                        setInnerEditOpt={setInnerEditOpt}
+                        setAddressList={setAddressList}
+                        setEditOpt={setEditOpt}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="p-4 border-b border-gray-300 select-none"
+                      key={index}
+                    >
+                      <div className="flex items-center justify-between relative">
+                        <p className="rounded bg-gray-200 px-2 py-0.5 text-[11px] text-gray-500 w-fit">
+                          {address?.address_type}
+                        </p>
+                        <div className="relative">
+                          <TbDotsVertical
+                            className="text-gray-500 cursor-pointer"
+                            onClick={() =>
+                              editOpt === index
+                                ? setEditOpt(null)
+                                : setEditOpt(index)
+                            }
+                          />
+                          <div
+                            className={`absolute top-6 right-2 bg-white shadow shadow-gray-400 rounded text-sm transform transition-all duration-300 origin-top-right text-gray-500 ${
+                              editOpt === index
+                                ? "scale-100 opacity-100"
+                                : "scale-0 opacity-0"
+                            }`}
+                            ref={editOpt === index ? menuRef : null}
+                          >
+                            <p
+                              className="px-3 py-1 pt-2 hover:text-black hover:bg-gray-100 cursor-pointer"
+                              onClick={() => setInnerEditOpt(address)}
+                            >
+                              Edit
+                            </p>
+                            <p
+                              className="px-3 py-1 pb-2 hover:text-red-500 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => deleteAddress(address?._id)}
+                            >
+                              Delete
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-sm flex items-center gap-4 font-[500] mt-2">
+                        <p>{address?.name}</p>
+                        <p>{address?.phone}</p>
+                      </div>
+                      <div className="text-sm mt-3">
+                        <span>{address?.address}</span>,{" "}
+                        <span>{address?.locality}</span>,{" "}
+                        <span>{address?.city}</span>,{" "}
+                        <span>{address?.state}</span> -{" "}
+                        <span className="font-[500]">{address.pincode}</span>
+                      </div>
+                    </div>
+                  )
+                )}
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-center min-h-[150px] text-sm">
+                  <p>Please add the Address</p>
+                </div>
+              </>
+            )}
           </>
         )}
       </div>

@@ -1,3 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import axiosPrivate from "../../utils/axiosPrivate";
+import { toastError, toastSuccess } from "../../utils/toast";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../../redux/features/authSlice";
+
 const FAQSection = () => {
   const faqs = [
     {
@@ -23,6 +29,50 @@ const FAQSection = () => {
     },
   ];
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const isGoogleUser = Boolean(user?.isGoogleUser || user?.googleId);
+
+  const deleteAccount = async (userId, isGoogleUser = false) => {
+    if (!userId) {
+      toastError("User ID missing");
+      return;
+    }
+
+    // Confirm before deleting
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+    if (!confirmed) return;
+
+    try {
+      const res = await axiosPrivate.delete(`/delete-account/${userId}`, {
+        withCredentials: true
+      });
+
+      if (res?.data?.success) {
+        toastSuccess(res.data.message || "Account deleted successfully");
+
+        localStorage.removeItem("token");
+        if (isGoogleUser) {
+          await axiosPrivate.post("/logout", { withCredentials: true });
+        }
+
+        dispatch(clearUser());
+
+        navigate("/");
+      } else {
+        toastError(res.data.message || "Failed to delete account");
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      toastError(
+        error.response?.data?.message || "Something went wrong while deleting"
+      );
+    }
+  };
+
   return (
     <div className="text-sm mx-auto text-gray-800 mt-10">
       <h2 className="font-bold mb-6">FAQs</h2>
@@ -34,14 +84,13 @@ const FAQSection = () => {
           </div>
         ))}
       </div>
-
       <div className="mt-8 flex flex-col gap-2">
-        <a
-          href="#"
-          className="text-pink-600 font-semibold hover:underline"
+        <p
+          className="text-pink-600 font-semibold hover:underline cursor-pointer"
+          onClick={() => deleteAccount(user?.id, isGoogleUser)}
         >
           Delete Account
-        </a>
+        </p>
       </div>
     </div>
   );
