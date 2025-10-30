@@ -6,7 +6,14 @@ import { useEffect } from "react";
 import { toastError, toastSuccess } from "../../utils/toast";
 import axiosPrivate from "../../utils/axiosPrivate";
 
-const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
+const AddAddressForm = ({
+  type,
+  setOpenAddAddress,
+  innerEditOpt,
+  setInnerEditOpt,
+  setAddressList,
+  setEditOpt,
+}) => {
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: "",
@@ -101,7 +108,7 @@ const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
       });
       const data = res?.data;
       if (data?.success) {
-        console.log("data", data);
+        setAddressList((prev) => [...prev, data?.address]);
         setFormData({
           name: "",
           phone: "",
@@ -114,28 +121,64 @@ const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
           alternate_phone: "",
           address_type: "home",
         });
-        // Store token
-        // localStorage.setItem("token", data.jwtToken);
-
-        // // Normalize user object to match your slice
-        // const user = {
-        //   id: data._id,
-        //   name: data.name,
-        //   email: data.email,
-        // };
-
-        // dispatch(setUser(user));
         toastSuccess(data.message || "Address added successfully");
       } else {
         toastError(
           data.message || "Couldn't add address, Please try again later"
         );
       }
-      // setFormData({ email: "", password: "" });
     } catch (error) {
       toastError(error.response?.data?.message || "Something went wrong");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleUpdate = async (e, id) => {
+    e.preventDefault();
+    const {
+      name,
+      phone,
+      pincode,
+      locality,
+      address,
+      city,
+      state,
+      landmark,
+      alternate_phone,
+      address_type,
+    } = formData;
+    try {
+      const res = await axiosPrivate.patch(`/update-address/${id}`, {
+        googleId: user?.id,
+        name,
+        phone,
+        pincode,
+        locality,
+        address,
+        city,
+        state,
+        landmark,
+        alternate_phone,
+        address_type,
+      });
+      if (res?.data?.success) {
+        toastSuccess(res?.data?.message || "Successfully updated address");
+        setAddressList((prev) =>
+          prev.map((a) => {
+            if (a._id === id) {
+              return res?.data?.address;
+            } else return a;
+          })
+        );
+      }
+      setInnerEditOpt(null);
+      setEditOpt(null);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setEditOpt(null);
+      setInnerEditOpt(null);
     }
   };
 
@@ -183,6 +226,36 @@ const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (innerEditOpt) {
+      const {
+        name,
+        phone,
+        pincode,
+        locality,
+        address,
+        city,
+        state,
+        address_type,
+      } = innerEditOpt;
+      const landmark = innerEditOpt.landmark || "";
+      const alternate_phone = innerEditOpt.alternate_phone || "";
+      setFormData((prev) => ({
+        ...prev,
+        name,
+        phone,
+        pincode,
+        locality,
+        address,
+        city,
+        state,
+        address_type,
+        landmark,
+        alternate_phone,
+      }));
+    }
+  }, [innerEditOpt]);
+
   return (
     <div className="mx-auto bg-[#f8fbff] border border-gray-300 rounded p-6">
       <h2 className="text-blue-600 font-semibold text-sm mb-4">
@@ -200,7 +273,12 @@ const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
       </button>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onSubmit={(e) =>
+          innerEditOpt ? handleUpdate(e, innerEditOpt?._id) : handleSubmit(e)
+        }
+        className="space-y-4"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
             <input
@@ -379,9 +457,10 @@ const AddAddressForm = ({ type, setOpenAddAddress, setInnerEditOpt }) => {
           <button
             type="button"
             className="text-blue-600 font-semibold hover:underline cursor-pointer"
-            onClick={() =>
-              type === "ADD" ? setOpenAddAddress(false) : setInnerEditOpt(null)
-            }
+            onClick={() => {
+              type === "ADD" ? setOpenAddAddress(false) : setInnerEditOpt(null);
+              setEditOpt(null);
+            }}
           >
             CANCEL
           </button>
