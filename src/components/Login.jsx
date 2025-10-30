@@ -50,7 +50,7 @@ const Login = ({ setRightSlider }) => {
       const data = res?.data;
       if (data?.success) {
         // Store token
-        localStorage.setItem("token", data.jwtToken);
+        localStorage.setItem("token", `Bearer ${data.jwtToken}`);
 
         // Normalize user object to match your slice
         const user = {
