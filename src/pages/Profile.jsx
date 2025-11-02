@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ProfileSection from "../components/profile/ProfileSection";
 import { FiBox, FiHeart, FiGift, FiHeadphones } from "react-icons/fi";
 import axiosPrivate from "../utils/axiosPrivate";
@@ -93,6 +92,16 @@ const Profile = () => {
             </p>
           </div>
         </div>
+        {/* admin option */}
+        {user?.role === 1001 && (
+          <Link
+            to="/admin-dashboard"
+            target="_blank"
+            className="bg-white shadow shadow-gray-300 rounded p-4 flex items-center gap-3 text-[12px]"
+          >
+            Open Admin Dashboard
+          </Link>
+        )}
       </div>
       {/* section for sm screen */}
       <div className="md:hidden p-3 bg-white flex flex-col items-center justify-evenly">
