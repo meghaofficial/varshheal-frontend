@@ -27,7 +27,7 @@ const TagsInput = ({ formData, setFormData, placeholder = "Add a tag..." }) => {
       {formData?.tags?.map((tag, i) => (
         <div
           key={i}
-          className="flex items-center gap-1 border border-purple-700 px-2 py-0.5 rounded-full text-sm"
+          className="flex items-center gap-1 border border-purple-700 px-2 py-0.5 rounded-full text-[11px]"
         >
           <span>{tag}</span>
           <button
@@ -45,7 +45,7 @@ const TagsInput = ({ formData, setFormData, placeholder = "Add a tag..." }) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        className="flex-1 outline-none bg-transparent text-sm"
+        className="flex-1 outline-none bg-transparent text-[11px]"
       />
     </div>
   );

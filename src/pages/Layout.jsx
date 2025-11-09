@@ -18,6 +18,7 @@ import MyOrdersSm from "./MyOrdersSm";
 import Dashboard from "./Dashboard";
 import ProductsList from "../components/admin/ProductsList";
 import NotFound404 from "./NotFound404";
+import React from "react";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -142,4 +143,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default React.memo(Layout);

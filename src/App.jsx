@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./utils/checkAuth";
 import { ToastContainer } from "react-toastify";
 
@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(checkAuth());
+   dispatch(checkAuth());
   }, [dispatch]);
 
   return (

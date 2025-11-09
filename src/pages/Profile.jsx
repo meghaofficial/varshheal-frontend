@@ -37,7 +37,7 @@ const Profile = () => {
       console.error("Logout failed:", err);
     }
   };
-
+  
   return (
     <div className="md:flex items-start md:py-5 md:px-10 gap-5 bg-[#F1F3F6]">
       {/* left section for lg screen */}

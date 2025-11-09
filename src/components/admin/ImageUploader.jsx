@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const ImageUploader = ({ img, type, onImageSelect, activeCat }) => {
+const ImageUploader = ({ img, type, onImageSelect, activeCat, id="imageInput" }) => {
   const [preview, setPreview] = useState(null);
 
   const handleDrop = (e) => {
@@ -29,6 +29,9 @@ const ImageUploader = ({ img, type, onImageSelect, activeCat }) => {
     if (img && typeof img === "string") {
       setPreview(img);
     }
+    if (!img){
+      setPreview(null)
+    }
   }, [img]);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ImageUploader = ({ img, type, onImageSelect, activeCat }) => {
       <label
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        htmlFor="imageInput"
+        htmlFor={id}
         className={`w-full ${
           type !== "sub" ? "h-[260px]" : "h-[80px]"
         } border-2 border-dashed border-gray-400 rounded flex flex-col items-center justify-center cursor-pointer hover:border-purple-700 transition`}
@@ -51,17 +54,17 @@ const ImageUploader = ({ img, type, onImageSelect, activeCat }) => {
           <img
             src={preview}
             alt="Uploaded preview"
-            className="w-full h-full object-cover rounded-2xl"
+            className="w-full h-full object-cover rounded"
           />
         ) : (
           <div className="text-gray-500 text-center">
-            <p className="text-sm">Drag & drop an image here</p>
+            <p className="text-[11px]">Drag & drop an image here</p>
             <p className="text-xs mt-1">or click to browse</p>
           </div>
         )}
       </label>
       <input
-        id="imageInput"
+        id={id}
         type="file"
         accept="image/*"
         onChange={handleSelect}
