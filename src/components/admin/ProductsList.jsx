@@ -739,7 +739,7 @@ const ProductsList = () => {
           description: [],
           specified_by: "",
           size: [],
-          color: "",
+          color: [],
           material: "",
           target_audience: "",
           fit_type: "",
@@ -805,7 +805,7 @@ const ProductsList = () => {
       setLoadings((prev) => ({ ...prev, deleteProdLoading: false }));
     }
   };
-  
+
   return (
     <div className="p-4 flex justify-center gap-3">
       {/* left categories list */}
@@ -2110,6 +2110,7 @@ const ProductsList = () => {
                                   ...prev,
                                   openCreateProd: true,
                                 }));
+                                getProductDetails(d?._id);
                                 handleGetList(
                                   pageInfo.catPageInfo?.currentPage,
                                   search?.searchCat,
