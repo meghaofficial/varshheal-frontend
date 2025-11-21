@@ -20,7 +20,6 @@ export const checkAuth = () => async (dispatch) => {
       return;
     }
   } catch (err) {
-    console.error("Auth check failed:", err);
     dispatch(clearUser());
     // localStorage.removeItem("token");
   }

@@ -35,40 +35,84 @@ const ProductSpecification = ({ formData, setFormData, selectedFormat }) => {
     setColors(colors.filter((clr) => clr !== c));
   };
 
-  useEffect(() => {
-    setSizes([
-      { size: "XS", isSelected: false },
-      { size: "S", isSelected: false },
-      { size: "M", isSelected: false },
-      { size: "L", isSelected: false },
-      { size: "XL", isSelected: false },
-      { size: "XXL", isSelected: false },
-    ]);
-    setColor("");
-    setColors([]);
-    setFormData((prev) => ({
-      ...prev,
-      material: "",
-      target_audience: "",
-      fit_type: "",
-      pattern: "",
-      occasion: "",
-      size: [],
-    }));
-  }, [selectedFormat]);
+  // useEffect(() => {
+  //   setSizes([
+  //     { size: "XS", isSelected: false },
+  //     { size: "S", isSelected: false },
+  //     { size: "M", isSelected: false },
+  //     { size: "L", isSelected: false },
+  //     { size: "XL", isSelected: false },
+  //     { size: "XXL", isSelected: false },
+  //   ]);
+  //   setColor("");
+  //   setColors([]);
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     material: "",
+  //     target_audience: "",
+  //     fit_type: "",
+  //     pattern: "",
+  //     occasion: "",
+  //     size: [],
+  //   }));
+  // }, [selectedFormat]);
 
-  useEffect(() => {
-    const selectedSizes = sizes.filter((s) => s.isSelected).map((s) => s.size);
+  const toggleSize = (size) => {
+    setSizes((prev) =>
+      prev.map((item) =>
+        item.size === size ? { ...item, isSelected: !item.isSelected } : item
+      )
+    );
 
-    setFormData((prev) => ({
-      ...prev,
-      size: selectedSizes,
-    }));
-  }, [sizes]);
+    setFormData((prev) => {
+      const isAlreadySelected = prev.size.includes(size);
+
+      return {
+        ...prev,
+        size: isAlreadySelected
+          ? prev.size.filter((s) => s !== size)
+          : [...prev.size, size],
+      };
+    });
+  };
+
+  // useEffect(() => {
+  //   const selectedSizes = sizes.filter((s) => s.isSelected).map((s) => s.size);
+
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     size: selectedSizes,
+  //   }));
+  // }, [sizes]);
 
   useEffect(() => {
     setFormData((prev) => ({ ...prev, color: colors }));
   }, [colors]);
+
+  useEffect(() => {
+    if (Array.isArray(formData?.size)) {
+      setSizes((prev) =>
+        prev.map((item) => ({
+          ...item,
+          isSelected: formData.size.includes(item.size),
+        }))
+      );
+    }
+  }, [formData?.size]);
+
+  // useEffect(() => {
+  //   if (formData?.size?.length > 0) {
+  //     setSizes((prev) =>
+  //       prev.map((item) => ({
+  //         ...item,
+  //         isSelected: formData.size.includes(item.size),
+  //       }))
+  //     );
+  //   }
+  // }, []);
+
+  console.log("formData", formData?.size);
+  console.log("selectteddiz", sizes);
 
   return (
     <div>
@@ -87,13 +131,14 @@ const ProductSpecification = ({ formData, setFormData, selectedFormat }) => {
                       : "border-gray-400 text-gray-500"
                   }`}
                   onClick={() =>
-                    setSizes((prev) =>
-                      prev.map((item, i) =>
-                        i === index
-                          ? { ...item, isSelected: !item.isSelected }
-                          : item
-                      )
-                    )
+                    // setSizes((prev) =>
+                    //   prev.map((item, i) =>
+                    //     i === index
+                    //       ? { ...item, isSelected: !item.isSelected }
+                    //       : item
+                    //   )
+                    // )
+                    toggleSize(s.size)
                   }
                 >
                   <p>{s.size}</p>
