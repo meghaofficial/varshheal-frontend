@@ -61,7 +61,6 @@ const SimilarProducts = ({ similar }) => {
           >
             {similar?.map((d, index) => (
               <div key={index} className="p-2 flex items-center justify-center">
-                {/* <CategoriesCard category={cat} index={index} /> */}
                 <ProductCard2 detail={d} />
               </div>
             ))}
