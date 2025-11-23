@@ -58,3 +58,9 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.list {
+  list-style: disc;  
+  margin-left: 20px; 
+}
+

@@ -28,7 +28,7 @@ const ProductCard2 = ({ detail }) => {
       </div>
       {/* buy now & add to cart */}
       <Link
-        to="/shop/product"
+        to={`/shop/${detail?.sku}`}
         className="bg-[#AE9896] rounded-full cursor-pointer py-1.5 w-full flex items-center justify-center hover:text-white mt-2"
       >
         Buy Now

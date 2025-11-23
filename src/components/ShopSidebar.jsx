@@ -27,6 +27,8 @@ const ShopSidebar = ({
     setAllCategories(categories);
   }, [categories]);
 
+  // CHECK PAGINATION AND LOADER
+
   useEffect(() => {
     const filterProducts = async (page = 1, search = "") => {
       setLoading(true);
