@@ -7,15 +7,15 @@ const LatestOfferComp = () => {
       <div className="relative w-fit">
         <div className="bg-[#ae9896] h-[400px] w-[280px] rounded-t-full"></div>
         <img
-          src="https://www.shoplibas.com/cdn/shop/files/35783_87fdc8c1-e4f0-4a83-9f6f-961e65788a30.jpg?v=1748664133&width=1080"
+          src="https://res.cloudinary.com/dmheb1ryv/image/upload/v1763739402/WhatsApp_Image_2025-09-28_at_11.16.41_50011c63_g7zqmn.jpg"
           alt="dress"
           className="h-[400px] w-[280px] absolute top-5 left-5 rounded-t-full"
         />
         <div className="border border-gray-300 p-2 w-fit absolute -bottom-16 sm:-right-16 -right-10">
           <img
-            src="https://cdn.shopify.com/s/files/1/0984/4522/products/panda-women-tshirt-india1.jpg?v=1571500585"
+            src="https://res.cloudinary.com/dmheb1ryv/image/upload/v1763739403/WhatsApp_Image_2025-09-28_at_11.16.39_e0c04ead_p8h2e9.jpg"
             alt="dress2"
-            className="h-[150px] w-[150px]"
+            className="h-[150px] w-[150px] object-cover"
           />
         </div>
       </div>

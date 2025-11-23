@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
-const PriceRange = () => {
+const PriceRange = ({ setPrms }) => {
   // state will hold the range as [min, max]
   const [priceRange, setPriceRange] = useState([500, 3000]);
+
+  useEffect(() => {
+    setPrms(prev => ({ ...prev, priceMin: priceRange[0] }));
+    setPrms(prev => ({ ...prev, priceMax: priceRange[1] }));
+  }, [priceRange]);
 
   return (
     <div className="w-full max-w-md mx-auto flex flex-col items-center mt-4">

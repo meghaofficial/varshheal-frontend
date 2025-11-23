@@ -1,44 +1,41 @@
 import CategoriesCard from "./CategoriesCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useCallback, useEffect, useState } from "react";
+import axiosPrivate from "../utils/axiosPrivate";
 
-const categories = [
-  {
-    name: "Tshirts",
-    imgUrl:
-      "",
-    id: 1,
-    items: 10,
-  },
-  {
-    name: "Shirts",
-    imgUrl:
-      "",
-    id: 2,
-    items: 12,
-  },
-  {
-    name: "Jeans",
-    imgUrl:
-      "",
-    id: 3,
-    items: 5,
-  },
-  {
-    name: "Party",
-    imgUrl:
-      "",
-    id: 4,
-    items: 15,
-  },
-  {
-    name: "Ethnic",
-    imgUrl:
-      "",
-    id: 5,
-    items: 8,
-  },
-];
+// const categories = [
+//   {
+//     name: "Tshirts",
+//     imgUrl: "",
+//     id: 1,
+//     items: 10,
+//   },
+//   {
+//     name: "Shirts",
+//     imgUrl: "",
+//     id: 2,
+//     items: 12,
+//   },
+//   {
+//     name: "Jeans",
+//     imgUrl: "",
+//     id: 3,
+//     items: 5,
+//   },
+//   {
+//     name: "Party",
+//     imgUrl: "",
+//     id: 4,
+//     items: 15,
+//   },
+//   {
+//     name: "Ethnic",
+//     imgUrl: "",
+//     id: 5,
+//     items: 8,
+//   },
+// ];
 
 const PopularCategories = () => {
   const responsive = {
@@ -60,6 +57,35 @@ const PopularCategories = () => {
     },
   };
 
+  const [categories, setCategories] = useState([]);
+
+  // getting categories
+  const handleGetCategories = useCallback(async (page = 1, search = "") => {
+
+    // setLoading(true);
+    try {
+      let query = `?page=${page}&limit=${10}`;
+      if (search) query += `&search=${encodeURIComponent(search)}`;
+
+      const res = await axiosPrivate.get(`/published-categories/${query}`, {
+        withCredentials: true,
+      });
+
+      setCategories(res?.data?.data);
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error fetching categories:`, error);
+      return null;
+    } finally {
+      // setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetCategories();
+  }, []);
+
   return (
     <div className="md:mt-24 mt-32">
       {/* header */}
@@ -76,15 +102,6 @@ const PopularCategories = () => {
           infinite={false}
           autoPlay={false}
         >
-          {/* {images.map((img, idx) => (
-      <div key={idx} className="p-2">
-        <img
-          src={img}
-          alt={`slide-${idx}`}
-          className="w-full h-[380px] object-cover rounded"
-        />
-      </div>
-    ))} */}
           {categories.map((cat, index) => (
             <div key={cat.id} className="p-2">
               <CategoriesCard category={cat} index={index} />

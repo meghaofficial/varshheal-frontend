@@ -9,18 +9,20 @@ import {
   LuSearch,
   LuBell
 } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
 import Reports from "./Reports";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const location = useLocation();
 
   return (
     <div className="flex items-start">
       {/* left sidebar */}
       <div className="w-[20%] p-6 shadow shadow-gray-200 flex flex-col gap-2 h-screen overflow-y-auto">
-        <p className="text-[25px]">SHOPIKU</p>
+        <p className="text-[25px]">VARSHAEL</p>
         <Link
           to="/admin-dashboard"
           className={`flex items-center gap-3 cursor-pointer py-3 px-4 hover:bg-purple-100 rounded-md mt-4 ${
@@ -34,7 +36,7 @@ const Dashboard = () => {
         <Link
           to="products"
           className={`flex items-center justify-between cursor-pointer py-3 px-4 hover:bg-purple-100 rounded-md ${
-            activeTab === 1 && location.pathname.includes("products") && "bg-purple-100 border-l-3 border-l-purple-700"
+            activeTab === 1 || location.pathname.includes("products") && "bg-purple-100 border-l-3 border-l-purple-700"
           }`}
           onClick={() => setActiveTab(1)}
         >

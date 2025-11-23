@@ -2,7 +2,7 @@ const CategoriesCard = ({ category, index }) => {
   return (
     <div className="border w-full border-gray-300 cursor-pointer hover:shadow-md shadow-[#0000004e]">
       <img
-        src={category?.imgUrl}
+        src={category?.thumbnail}
         alt="category"
         className="w-full h-[380px] object-cover"
       />
@@ -16,7 +16,7 @@ const CategoriesCard = ({ category, index }) => {
             0{index + 1}. {category?.name}
           </span>
         )}
-        <span className="text-orange-400">{category?.items} items</span>
+        <span className="text-orange-400">{category?.products} items</span>
       </div>
     </div>
   );

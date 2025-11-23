@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ShopSidebar from "../components/ShopSidebar";
 import ProductCard from "../components/ProductCard";
 import ProductCardWithoutHover from "../components/ProductCardWithoutHover";
@@ -12,7 +12,8 @@ import Pagination from "../components/Pagination";
 import { Outlet } from "react-router-dom";
 import Colors from "../components/Colors";
 import { IoFilterSharp } from "react-icons/io5";
-
+import axiosPrivate from "../utils/axiosPrivate";
+import { RxCross2 } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -137,6 +138,69 @@ const categories = ["Tshirts", "Shirts", "Jeans", "Party", "Ethnic"];
 
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [catName, setCatName] = useState("");
+  const [query, setQuery] = useState("");
+
+  const handleGetCategories = useCallback(async (page = 1, search = "") => {
+    // setLoading(true);
+    try {
+      let query = `?page=${page}&limit=${10}`;
+      if (search) query += `&search=${encodeURIComponent(search)}`;
+
+      const res = await axiosPrivate.get(`/published-categories/${query}`, {
+        withCredentials: true,
+      });
+
+      setCategories(res?.data?.data);
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error fetching categories:`, error);
+      return null;
+    } finally {
+      // setLoading(false);
+    }
+  }, []);
+  const handleGetProducts = useCallback(async (page = 1, search = "") => {
+    setLoading(true);
+    try {
+      let query = `?page=${page}&limit=${10}`;
+      if (search) query += `&search=${encodeURIComponent(search)}`;
+
+      const res = await axiosPrivate.get(`/published-products/${query}`, {
+        withCredentials: true,
+      });
+
+      setProducts(res?.data?.data);
+      setTotalPages(res?.data?.totalPages);
+      setTotal(res?.data?.total);
+      setCurrentPage(res?.data?.currentPage);
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error fetching products:`, error);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetCategories();
+    handleGetProducts();
+  }, []);
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      handleGetProducts(1, query);
+    }, 300);
+  }, [query]);
 
   return (
     <div className="">
@@ -147,7 +211,9 @@ const Shop = () => {
           <span>{">"}</span>
           <span className="cursor-pointer hover:font-bold">Categories</span>
           <span>{">"}</span>
-          <span className="cursor-pointer hover:font-bold">Bags</span>
+          <span className="cursor-pointer hover:font-bold">
+            {catName ? catName : "All"}
+          </span>
         </div>
         {/* search */}
         <div className="md:block hidden cursor-pointer relative">
@@ -155,8 +221,20 @@ const Shop = () => {
             type="text"
             className="bg-white/50 py-1 rounded-full outline-none ps-3"
             placeholder="Search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
-          <Search size={16} className="absolute right-2 top-2 text-black/40" />
+          {query ? (
+            <RxCross2
+              className="absolute right-2 top-2 text-gray-500 cursor-pointer"
+              onClick={() => setQuery("")}
+            />
+          ) : (
+            <Search
+              size={16}
+              className="absolute right-2 top-2 text-black/40"
+            />
+          )}
         </div>
       </div>
       {/* search & filter for sm screen */}
@@ -223,23 +301,37 @@ const Shop = () => {
         <div className="p-4 flex items-start gap-4 bg-[#e6ded3]/20">
           {/* left filters for lg screens */}
           <div className="md:block hidden w-[20%]">
-            <ShopSidebar />
+            <ShopSidebar
+              categories={categories}
+              setProducts={setProducts}
+              loading={loading}
+              setLoading={setLoading}
+              setCatName={setCatName}
+              setTotalPages={setTotalPages}
+              setTotal={setTotal}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
           {/* right */}
           <div className="md:w-[80%] flex items-center justify-center flex-col w-full">
-            <div className="grid md:gap-x-8 gap-x-4 md:gap-y-6 gap-y-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full justify-items-center">
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-              <ProductCard2 />
-            </div>
-            <div className="mt-5 flex items-center justify-center">
-              <Pagination />
-            </div>
+            {loading ? (
+              <div className="h-[450px] flex items-center justify-center">
+                <span className="loader"></span>
+              </div>
+            ) : (
+              <>
+                <div className="grid md:gap-x-8 gap-x-4 md:gap-y-6 gap-y-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full justify-items-center">
+                  {products?.map((p, index) => (
+                    <div key={index}>
+                      <ProductCard2 detail={p} />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 flex items-center justify-center">
+                  <Pagination totalPages={totalPages} />
+                </div>
+              </>
+            )}
           </div>
         </div>
       ) : (
