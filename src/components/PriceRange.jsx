@@ -3,19 +3,14 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { useSearchParams } from "react-router-dom";
 
-const PriceRange = ({ setPrms, updateFilter }) => {
+const PriceRange = ({ updateFilter }) => {
   // state will hold the range as [min, max]
   const [searchParams] = useSearchParams();
-  const priceMin = searchParams.get("min");
-  const priceMax = searchParams.get("max");
+  const priceMin = searchParams.get("min") || 500;
+  const priceMax = searchParams.get("max") || 3000;
   const [priceRange, setPriceRange] = useState(
     [priceMin, priceMax]
   );
-
-  // useEffect(() => {
-  //   setPrms(prev => ({ ...prev, priceMin: priceRange[0] }));
-  //   setPrms(prev => ({ ...prev, priceMax: priceRange[1] }));
-  // }, [priceRange]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
