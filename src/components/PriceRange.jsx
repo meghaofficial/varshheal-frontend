@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+import { useSearchParams } from "react-router-dom";
 
-const PriceRange = ({ setPrms }) => {
+const PriceRange = ({ setPrms, updateFilter }) => {
   // state will hold the range as [min, max]
-  const [priceRange, setPriceRange] = useState([500, 3000]);
+  const [searchParams] = useSearchParams();
+  const priceMin = searchParams.get("min");
+  const priceMax = searchParams.get("max");
+  const [priceRange, setPriceRange] = useState(
+    [priceMin, priceMax]
+  );
+
+  // useEffect(() => {
+  //   setPrms(prev => ({ ...prev, priceMin: priceRange[0] }));
+  //   setPrms(prev => ({ ...prev, priceMax: priceRange[1] }));
+  // }, [priceRange]);
 
   useEffect(() => {
-    setPrms(prev => ({ ...prev, priceMin: priceRange[0] }));
-    setPrms(prev => ({ ...prev, priceMax: priceRange[1] }));
+    const delayDebounce = setTimeout(() => {
+      updateFilter("min", priceRange[0]);
+      updateFilter("max", priceRange[1]);
+    }, 300);
+
+    return () => clearTimeout(delayDebounce);
   }, [priceRange]);
 
   return (
@@ -17,8 +32,8 @@ const PriceRange = ({ setPrms }) => {
         min={0}
         max={5000}
         step={50}
-        value={priceRange}              // controlled state
-        onInput={setPriceRange}         // updates state automatically
+        value={priceRange} // controlled state
+        onInput={setPriceRange} // updates state automatically
       />
 
       {/* Showing selected values */}

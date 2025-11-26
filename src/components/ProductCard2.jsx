@@ -11,7 +11,7 @@ const ProductCard2 = ({ detail }) => {
       <img
         src={detail?.images?.img1}
         alt="dress"
-        className="md:h-[200px] w-[200px] object-cover z-9 relative duration-300 transition-all scale-[100%] group-hover:scale-[120%]"
+        className="md:h-[200px] h-[180px] w-[200px] object-cover z-9 relative duration-300 transition-all scale-[100%] group-hover:scale-[120%]"
       />
       {/* -top-3 */}
       <p className="text-center relative top-6 font-semibold font-serif text-sm">
