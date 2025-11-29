@@ -175,20 +175,6 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    // const getAllColors = async () => {
-    //   try {
-    //     const res = await axiosPrivate.get("/colors");
-    //     const cl = res?.data?.colors?.map((c) => {
-    //       const obj = { color: c, isSelected: false };
-    //       return obj;
-    //     });
-    //     // THIS SHOULD BE THE FORMAT
-    //     // { color: "red", isSelected: true },
-    //     setSelectedColors(cl);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
     getAllColors();
   }, []);
 

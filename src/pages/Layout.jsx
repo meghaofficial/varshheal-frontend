@@ -19,6 +19,7 @@ import Dashboard from "./Dashboard";
 import ProductsList from "../components/admin/ProductsList";
 import NotFound404 from "./NotFound404";
 import React from "react";
+import CategoryList from "../components/admin/CategoryList";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -82,7 +83,7 @@ const Layout = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />}>
-            <Route path=":sku?" element={<DisplayProduct />} />
+            <Route path=":sku?/:name?" element={<DisplayProduct />} />
           </Route>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -115,7 +116,8 @@ const Layout = () => {
             }
           >
             <Route path="/admin-dashboard" element={<Dashboard />}>
-              <Route path="products" element={<ProductsList />} />
+              <Route path="product" element={<ProductsList />} />
+              <Route path="category" element={<CategoryList />} />
               {/* <Route path="flash-sales" element={<FlashSales />} />
             <Route path="customers" element={<Customers />} />
             <Route path="order-list" element={<OrderList />} />

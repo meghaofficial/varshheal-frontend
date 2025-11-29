@@ -7,6 +7,8 @@ import ReviewsAndRatings from "../components/ReviewsAndRatings";
 import SimilarProducts from "../components/SimilarProducts";
 import axiosPrivate from "../utils/axiosPrivate";
 import { useParams } from "react-router-dom";
+import { toastSuccess } from "../utils/toast";
+// import useCart from "../hooks/useCart";
 
 const DisplayProduct = () => {
   const [images, setImages] = useState([]);
@@ -24,6 +26,7 @@ const DisplayProduct = () => {
   const { sku } = useParams();
   const [detail, setDetail] = useState(null);
   const [similar, setSimilar] = useState([]);
+  // const { addToCart, loading } = useCart();
 
   const prevClick = () => {
     if (currIndex > 0) setCurrIndex((prev) => prev - 1);
@@ -31,6 +34,36 @@ const DisplayProduct = () => {
 
   const nextClick = () => {
     if (currIndex < images?.length - 1) setCurrIndex((prev) => prev + 1);
+  };
+
+  // const handleAddToCart = async () => {
+  //   await addToCart({
+  //     productId: detail?._id,
+  //     price: detail?.price,
+  //     quantity: quantity || 1,
+  //     // variant: {
+  //     //   color: selectedColor,
+  //     //   size: selectedSize,
+  //     // },
+  //   });
+
+  //   alert("Item added to cart!");
+  // };
+
+  const handleAddToCart = async () => {
+    try {
+      const res = await axiosPrivate.post("/cart/add", {
+        productId: detail?._id,
+        quantity: quantity || 1,
+        price: detail?.price,
+        variant: {},
+      });
+
+      toastSuccess(res?.data?.message || "Item added in cart successfully");
+    } catch (err) {
+      console.log(err);
+      toastError(err?.response?.data.message || "Something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -55,7 +88,7 @@ const DisplayProduct = () => {
   }, [sku]);
 
   useEffect(() => {
-    if (!detail?._id) return; 
+    if (!detail?._id) return;
 
     const handleGetSimilarProducts = async () => {
       try {
@@ -359,6 +392,22 @@ const DisplayProduct = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* cart button */}
+          <div className="flex items-center mt-6">
+            <p
+              className={`border-2 px-3 py-1 text-[14px] border-black cursor-pointer hover:text-white hover:bg-black`}
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </p>
+            <p
+              className={`border-y-2 border-r-2 p-1 border-black hover:text-white hover:bg-black cursor-pointer`}
+              onClick={handleAddToCart}
+            >
+              <ChevronRight size={21} />
+            </p>
           </div>
         </div>
       </div>

@@ -11,8 +11,6 @@ import axiosPrivate from "../../utils/axiosPrivate";
 import { toastError, toastSuccess } from "../../utils/toast";
 import { RxCross2 } from "react-icons/rx";
 import ImageViewer from "../ImageViewer";
-import dress from "../../assets/dress.png";
-import recolorImage from "../../utils/recolorImage";
 import ToggleButton from "../ToggleButton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiRefresh } from "react-icons/bi";
@@ -193,7 +191,7 @@ const ProductsList = () => {
         "/drafted-categories"
       );
       setCreate((prev) => ({ ...prev, openCreateCat: false }));
-      setDraft(prev => ({ ...prev, showDraftCat: true }));
+      setDraft((prev) => ({ ...prev, showDraftCat: true }));
     } catch (error) {
       toastError(error.response?.data?.message || "Update failed");
     } finally {
@@ -421,7 +419,7 @@ const ProductsList = () => {
         "/drafted-products"
       );
       setCreate((prev) => ({ ...prev, openCreateProd: false }));
-      setDraft(prev => ({ ...prev, showDraftProd: true }));
+      setDraft((prev) => ({ ...prev, showDraftProd: true }));
     } catch (err) {
       console.error(err);
       toastError(err.response?.data?.message || "Update failed");
@@ -807,7 +805,8 @@ const ProductsList = () => {
   };
 
   return (
-    <div className="p-4 flex justify-center gap-3">
+    <div className="p-4 flex flex-col justify-center gap-3">
+
       {/* left categories list */}
       <div className="bg-white border border-gray-200 w-full rounded">
         {/* upper bar */}
@@ -1022,7 +1021,10 @@ const ProductsList = () => {
                     "/drafted-categories"
                   );
                   setSearch((prev) => ({ ...prev, searchCat: "" }));
-                  setPageInfo(prev => ({ ...prev, catPageInfo: { ...prev.catPageInfo, currentPage: 1 } }));
+                  setPageInfo((prev) => ({
+                    ...prev,
+                    catPageInfo: { ...prev.catPageInfo, currentPage: 1 },
+                  }));
                 }}
               >
                 Drafts
@@ -1039,7 +1041,10 @@ const ProductsList = () => {
                     "/published-categories"
                   );
                   setSearch((prev) => ({ ...prev, searchCat: "" }));
-                  setPageInfo(prev => ({ ...prev, catPageInfo: { ...prev.catPageInfo, currentPage: 1 } }));
+                  setPageInfo((prev) => ({
+                    ...prev,
+                    catPageInfo: { ...prev.catPageInfo, currentPage: 1 },
+                  }));
                 }}
               >
                 Published
@@ -1112,7 +1117,9 @@ const ProductsList = () => {
                               !showAll &&
                               selectedCats?.includes(d?._id) &&
                               "border border-purple-700"
-                            } ${!draft?.showDraftCat && 'cursor-pointer'} rounded`}
+                            } ${
+                              !draft?.showDraftCat && "cursor-pointer"
+                            } rounded`}
                             onClick={() => {
                               if (!draft?.showDraftCat) {
                                 setShowAll(false);
@@ -1965,7 +1972,10 @@ const ProductsList = () => {
                     "/drafted-products"
                   );
                   setSearch((prev) => ({ ...prev, searchProd: "" }));
-                  setPageInfo(prev => ({ ...prev, prodPageInfo: { ...prev.prodPageInfo, currentPage: 1 } }));
+                  setPageInfo((prev) => ({
+                    ...prev,
+                    prodPageInfo: { ...prev.prodPageInfo, currentPage: 1 },
+                  }));
                 }}
               >
                 Drafts
@@ -1982,7 +1992,10 @@ const ProductsList = () => {
                     "/published-products"
                   );
                   setSearch((prev) => ({ ...prev, searchProd: "" }));
-                  setPageInfo(prev => ({ ...prev, prodPageInfo: { ...prev.prodPageInfo, currentPage: 1 } }));
+                  setPageInfo((prev) => ({
+                    ...prev,
+                    prodPageInfo: { ...prev.prodPageInfo, currentPage: 1 },
+                  }));
                 }}
               >
                 Published

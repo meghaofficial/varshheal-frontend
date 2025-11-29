@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import axiosPrivate from "../utils/axiosPrivate";
 
 const Cart = () => {
+  const [details, setDetails] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+  const getCartDetails = async () => {
+    try {
+      const res = await axiosPrivate.get("/cart");
+      setDetails(res?.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCartDetails();
+  }, []);
+
+  console.log("details", details);
+  // updateCartItem(product._id, 3, { size: "M", color: "Black" });
 
   return (
     <div className="md:min-h-[550px] md:pb-0 pb-8 flex md:flex-row flex-col md:p-8 bg-[#e6ded3]/20">
@@ -17,7 +35,7 @@ const Cart = () => {
             Shopping Cart
           </span>
           <span className="md:text-[20px] text-[20px] font-semibold">
-            3 Items
+            {details?.totalItems} Items
           </span>
         </div>
         {/* self made table */}
@@ -31,54 +49,8 @@ const Cart = () => {
 
           {/* details for lg screen */}
           <div className="md:max-h-[300px] overflow-y-auto mt-5 md:flex hidden flex-col gap-6">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="flex items-center justify-center">
-                {/* product */}
-                <div className="min-w-[40%] ps-3 flex gap-3">
-                  <img
-                    src="https://assets.myntassets.com/h_1440,q_75,w_1080/v1/assets/images/productimage/2021/4/5/cc515fe2-8a0b-48ab-98c0-ea446b77b4f01617600056575-1.jpg"
-                    alt="jwellery"
-                    className="h-[60px] w-[60px]"
-                  />
-                  <div className="flex flex-col justify-between">
-                    <span className="text-[14px]">Pendant</span>
-                    <span className="text-gray-500 text-[12px]">Jwellery</span>
-                    <span className="text-red-500 cursor-pointer text-[10px] ">
-                      Remove
-                    </span>
-                  </div>
-                </div>
-                {/* quantity */}
-                <div className="min-w-[20%] flex items-center justify-center text-xs">
-                  <div
-                    className="h-6 w-6 flex items-center justify-center border-2 hover:bg-black hover:text-white cursor-pointer hover:border-black"
-                    onClick={() =>
-                      setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
-                    }
-                  >
-                    <FiMinus />
-                  </div>
-                  <div className="h-6 w-6 flex items-center justify-center border-y-2">
-                    {quantity}
-                  </div>
-                  <div
-                    className="h-6 w-6 flex items-center justify-center border-2 hover:bg-black hover:text-white cursor-pointer hover:border-black"
-                    onClick={() =>
-                      setQuantity((prev) => (prev < 6 ? prev + 1 : prev))
-                    }
-                  >
-                    <FiPlus />
-                  </div>
-                </div>
-                {/* price */}
-                <span className="min-w-[20%] text-center text-sm">
-                  Rs. 3000
-                </span>
-                {/* total */}
-                <span className="min-w-[20%] text-end pe-3 text-sm">
-                  Rs. 3000
-                </span>
-              </div>
+            {details?.items?.map((d, index) => (
+              <DetailForLg index={index} d={d} />
             ))}
           </div>
           {/* details for sm screen */}
@@ -96,7 +68,9 @@ const Cart = () => {
                       className="h-[150px] min-w-[150px]"
                     />
                     <div className="w-full">
-                      <p className="">Lorem, ipsum ieuhf e iuh ih ihii ni ii ioni i...</p>
+                      <p className="">
+                        Lorem, ipsum ieuhf e iuh ih ihii ni ii ioni i...
+                      </p>
                       {/* quantity */}
                       <div className="flex items-center my-2 text-xs">
                         <div
@@ -186,6 +160,71 @@ const Cart = () => {
           CHECKOUT
         </button>
       </div>
+    </div>
+  );
+};
+
+const DetailForLg = ({ index, d }) => {
+  const [quantity, setQuantity] = useState(1);
+
+  const updateCartItem = async (productId, newQuantity, variant = {}) => {
+    try {
+      const res = await axiosPrivate.put("/cart/update", {
+        productId: productId,
+        quantity: newQuantity,
+        variant: variant,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div key={index} className="flex items-center justify-center">
+      {/* product */}
+      <div className="min-w-[40%] ps-3 flex gap-3">
+        <img
+          src={d?.product?.images?.img1}
+          className="h-[60px] w-[60px] object-cover"
+        />
+        <div className="flex flex-col justify-evenly">
+          <span className="text-[14px]">{d?.product?.name}</span>
+          {/* <span className="text-gray-500 text-[12px]">Jwellery</span> */}
+          <span className="text-red-500 cursor-pointer text-[10px] ">
+            Remove
+          </span>
+        </div>
+      </div>
+      {/* quantity */}
+      <div className="min-w-[20%] flex items-center justify-center text-xs">
+        <div
+          className="h-6 w-6 flex items-center justify-center border-2 hover:bg-black hover:text-white cursor-pointer hover:border-black"
+          onClick={() => {
+            setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+            updateCartItem(d?.product?._id, d?.quantity - 1);
+          }}
+        >
+          <FiMinus />
+        </div>
+        <div className="h-6 w-6 flex items-center justify-center border-y-2">
+          {d?.quantity}
+        </div>
+        <div
+          className="h-6 w-6 flex items-center justify-center border-2 hover:bg-black hover:text-white cursor-pointer hover:border-black"
+          onClick={() => {
+            setQuantity((prev) => (prev < 6 ? prev + 1 : prev));
+            updateCartItem(d?.product?._id, d?.quantity + 1);
+          }}
+        >
+          <FiPlus />
+        </div>
+      </div>
+      {/* price */}
+      <span className="min-w-[20%] text-center text-sm">Rs. {d?.price}</span>
+      {/* total */}
+      <span className="min-w-[20%] text-end pe-3 text-sm">
+        Rs. {d?.quantity > 0 ? d?.price * d?.quantity : d?.price}
+      </span>
     </div>
   );
 };
