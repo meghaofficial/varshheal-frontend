@@ -1,0 +1,31 @@
+[
+  {
+    "colorName": "Black",
+    "colorCode": "#000000",
+    "stock": 20,
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dmheb1ryv/image/upload/v1764514511/product/n724jyep3args4k5hg9z.jpg",
+        "public_id": "",
+        "position": 0
+      },
+      {
+        "url": "https://res.cloudinary.com/dmheb1ryv/image/upload/v1764514511/product/n7 24jyep3args4k5hg9z.jpg",
+        "public_id": "",
+        "position": 1
+      }
+    ]
+  },
+  {
+    "colorName": "White",
+    "colorCode": "#ffffff",
+    "stock": 10,
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dmheb1ryv/image/upload/v1764514511/product/n724jyep3args4k5hg9z.jpg",
+        "public_id": "",
+        "position": 0
+      }
+    ]
+  }
+]

@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const ImageUploader = ({ img, type, onImageSelect, activeCat, id="imageInput" }) => {
+const ImageUploader = ({
+  img,
+  type,
+  onImageSelect,
+  activeCat,
+  id = "imageInput",
+}) => {
   const [preview, setPreview] = useState(null);
 
   const handleDrop = (e) => {
@@ -25,20 +31,35 @@ const ImageUploader = ({ img, type, onImageSelect, activeCat, id="imageInput" })
   const handleDragOver = (e) => e.preventDefault();
 
   // Show existing image if provided from props (Cloudinary URL)
-  useEffect(() => {
-    if (img && typeof img === "string") {
-      setPreview(img);
-    }
-    if (!img){
-      setPreview(null)
-    }
-  }, [img]);
+  // useEffect(() => {
+  //   if (img && typeof img === "string") {
+  //     setPreview(img);
+  //   }
+  //   if (!img){
+  //     setPreview(null)
+  //   }
+  // }, [img]);
 
   useEffect(() => {
-    if (activeCat && activeCat?.thumbnail){
-      setPreview(activeCat?.thumbnail);
+    if (!img) {
+      setPreview(null);
+      return;
     }
-  }, [activeCat]);
+
+    // If it's a File (local upload)
+    if (img instanceof File) {
+      const objectUrl = URL.createObjectURL(img);
+      setPreview(objectUrl);
+
+      // cleanup memory
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+
+    // If it's a string (cloud URL)
+    if (typeof img === "string") {
+      setPreview(img);
+    }
+  }, [img]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
@@ -48,7 +69,7 @@ const ImageUploader = ({ img, type, onImageSelect, activeCat, id="imageInput" })
         htmlFor={id}
         className={`w-full ${
           type !== "sub" ? "h-[260px]" : "h-[80px]"
-        } border-2 border-dashed border-gray-400 rounded flex flex-col items-center justify-center cursor-pointer hover:border-purple-700 transition`}
+        } border-2 border-dashed border-gray-400 rounded flex flex-col items-center justify-center cursor-pointer hover:border-black transition`}
       >
         {preview ? (
           <img
