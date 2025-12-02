@@ -6,12 +6,14 @@ import BannerSlider from "../components/BannerSlider";
 import BannerVideo from "../components/BannerVideo";
 import Loader from "../components/Loader";
 import { toastError, toastSuccess } from "../utils/toast";
+import Banner from "./Banner";
 
 const Home = () => {
   return (
     <div className="">
       {/* <MainAdvertisement /> */}
       {/* <BannerSlider /> */}
+      {/* <Banner /> */}
       <BannerVideo />
 
       {/* remember your last one */}

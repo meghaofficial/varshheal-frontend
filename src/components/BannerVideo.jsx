@@ -5,9 +5,10 @@ const BannerVideo = () => {
 
   return (
     <div
-      className="relative w-full h-[540px] overflow-hidden cursor-pointer"
+      className="relative w-full h-[500px] overflow-hidden cursor-pointer"
       onClick={() => navigate("/shop")}
     >
+      <div className="absolute h-full w-full bg-black/50 z-[999]"></div>
       <video
         src="/banner.mp4"
         autoPlay
