@@ -1,4 +1,3 @@
-import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaPlay } from "react-icons/fa";
 import Card from "./Card";

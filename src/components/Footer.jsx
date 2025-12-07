@@ -1,10 +1,9 @@
-import { Facebook, Instagram, Twitter } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0c0c0c] text-white flex md:flex-row flex-col">
+    <footer className="bg-[#0c0c0c] text-white flex md:flex-row flex-col md:mt-30">
       {/* left */}
       <div className="md:border-r border-[#181818] md:w-[60%] w-full">
         {/* top */}

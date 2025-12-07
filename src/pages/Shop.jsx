@@ -268,13 +268,6 @@ const Shop = () => {
                   exit={{ x: "-100%" }}
                   transition={{ type: "tween", duration: 0.4 }}
                 >
-                  {/* Close Button */}
-                  {/* <button
-                  onClick={() => setIsOpen(false)}
-                  className="self-end text-2xl text-gray-700"
-                >
-                  <FaTimes />
-                </button> */}
 
                   {/* Sidebar Links */}
                   <ShopSidebar

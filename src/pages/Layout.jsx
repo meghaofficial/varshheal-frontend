@@ -18,8 +18,9 @@ import MyOrdersSm from "./MyOrdersSm";
 import Dashboard from "./Dashboard";
 import ProductsList from "../components/admin/ProductsList";
 import NotFound404 from "./NotFound404";
-import React from "react";
+import React, { useState } from "react";
 import CategoryList from "../components/admin/CategoryList";
+import SearchPanel from "../componentsNew/SearchPanel";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -62,8 +63,13 @@ const AdminRoute = ({ isAuthenticated, isAuthorized, loading }) => {
 const Layout = () => {
   const location = useLocation();
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+  const [openSearch, setOpenSearch] = useState(false);
 
-  return (
+  // 448px innerwidth
+
+  return openSearch && window.innerWidth < 448 ? (
+    <SearchPanel setOpenSearch={setOpenSearch} />
+  ) : (
     <div
       className={`${location.pathname === "/about" && "bg-[#f9f4f1]"} ${
         location.pathname === "/contact" && "bg-[#F9F9F9]"
@@ -78,7 +84,7 @@ const Layout = () => {
             "hidden"
           }`}
         >
-          <Navbar />
+          <Navbar openSearch={openSearch} setOpenSearch={setOpenSearch} />
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -119,9 +125,9 @@ const Layout = () => {
               <Route path="product" element={<ProductsList />} />
               <Route path="category" element={<CategoryList />} />
               {/* <Route path="flash-sales" element={<FlashSales />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="order-list" element={<OrderList />} />
-            <Route path="settings" element={<Settings />} /> */}
+              <Route path="customers" element={<Customers />} />
+              <Route path="order-list" element={<OrderList />} />
+              <Route path="settings" element={<Settings />} /> */}
             </Route>
           </Route>
           {/* public routes */}

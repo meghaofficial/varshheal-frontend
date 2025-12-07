@@ -1,5 +1,3 @@
-import React from "react";
-
 const NeedUs = () => {
   return (
     <div className="md:px-30 md:pe-60 relative flex items-center">
