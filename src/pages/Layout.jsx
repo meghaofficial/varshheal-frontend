@@ -132,7 +132,7 @@ const Layout = () => {
         </Routes>
       </div>
       <div
-        className={`${location.pathname === "/" && "mt-28"} ${
+        className={` ${
           (location.pathname.includes("auth") ||
             location.pathname.includes("rv") ||
             location.pathname.includes("admin")) &&

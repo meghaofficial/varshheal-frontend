@@ -3,10 +3,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
-import { PiShoppingCartSimple } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
 
-const Navbar = () => {
+const OLD = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,62 +23,89 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className="flex items-center justify-between md:ps-10 md:pe-15 px-8 pt-6 pb-5"
-      style={{ fontFamily: "Helvetica" }}
-    >
-      {/* logo */}
-      <img src="/images/logo.png" alt="logo" className="h-[50px]" />
-
-      {/* nav links md */}
-      <div className="text-[13px] w-[400px] md:flex hidden">
-        <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
-        >
-          Home
-        </span>
-        <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
-        >
-          Collections
-        </span>
-        <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
-        >
-          About
-        </span>
-        <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
-        >
-          Contact
-        </span>
-      </div>
-
-      {/* search & cart */}
-      <div className="flex items-center gap-3">
-        {/* search */}
-        <CiSearch className="cursor-pointer" size={20} />
-        {/* cart for lg */}
-        <div className="relative cursor-pointer md:block hidden">
-          <PiShoppingCartSimple />
-          <span
-            className={`bg-black text-white rounded-full absolute -top-[9px] -right-[9px] text-[8px] flex items-center justify-center min-w-3 min-h-3`}
+    // NAVBAR
+    <div className="px-2 pe-4 py-2 bg-[#e6ded3]">
+      {/* [#e6ded3] */}
+      <div className="flex items-center justify-between px-4 py-1">
+        {/* logo */}
+        <div className="cursor-pointer" onClick={() => navigate("/")}>
+          <img src="/logo_nav.png" alt="logo" className="h-14" />
+        </div>
+        {/* middle nav links */}
+        <div className="md:flex hidden items-center">
+          <Link
+            to="/"
+            className={`px-4 text-[14px] cursor-pointer hover:font-semibold w-26 text-center ${
+              location.pathname === "/" && "font-semibold"
+            }`}
           >
-            2
-          </span>
+            Home
+          </Link>
+          <div className="bg-black rounded-full h-5.5 w-[1.2px]"></div>
+          <Link
+            to="/shop"
+            className={`px-4 text-[14px] cursor-pointer hover:font-semibold w-26 text-center ${
+              location.pathname.includes("shop") && "font-semibold"
+            }`}
+          >
+            Shop
+          </Link>
+          <div className="bg-black rounded-full h-5.5 w-[1.2px]"></div>
+          <Link
+            to="/about"
+            className={`px-4 text-[14px] cursor-pointer hover:font-semibold w-26 text-center ${
+              location.pathname === "/about" && "font-semibold"
+            }`}
+          >
+            About us
+          </Link>
+          <div className="bg-black rounded-full h-5.5 w-[1.2px]"></div>
+          <Link
+            to="/contact"
+            className={`px-4 text-[14px] cursor-pointer hover:font-semibold w-26 text-center ${
+              location.pathname === "/contact" && "font-semibold"
+            }`}
+          >
+            Contact
+          </Link>
         </div>
-        {/* for md */}
-        <div className="md:hidden block">
-          <Menu
-            size={20}
-            className="cursor-pointer"
-            onClick={() => setOpenMenu((prev) => !prev)}
-          />
+
+        {/* side wishlist/cart/my_account */}
+        <div className="flex items-center gap-5">
+          {/* <div className="relative sm:block hidden cursor-pointer">
+            <span className="bg-black text-white rounded-full text-[8px] h-4 w-4 flex items-center justify-center absolute -top-2 -right-2">
+              10
+            </span>
+            <Heart size={16} />
+          </div> */}
+          <div
+            className="relative sm:block hidden cursor-pointer"
+            onClick={() => navigate("/cart")}
+          >
+            <span className="bg-black text-white rounded-full text-[8px] h-4 w-4 flex items-center justify-center absolute -top-2 -right-2">
+              10
+            </span>
+            <ShoppingBag size={16} />
+          </div>
+          <Link
+            to={isAuthenticated ? "/account" : "/auth"}
+            className="sm:block hidden cursor-pointer"
+          >
+            <User size={16} />
+          </Link>
+          {/* hamburger for sm screen */}
+          <div className="md:hidden block">
+            <Menu
+              size={20}
+              className="cursor-pointer"
+              onClick={() => setOpenMenu((prev) => !prev)}
+            />
+          </div>
         </div>
       </div>
 
-      {/* nav links for md */}
-      <div className="absolute">
+      {/* nav links for smaller screen */}
+      <div>
         <AnimatePresence>
           {openMenu && (
             <>
@@ -171,4 +196,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default OLD;
