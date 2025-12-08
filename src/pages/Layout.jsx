@@ -21,6 +21,7 @@ import NotFound404 from "./NotFound404";
 import React, { useState } from "react";
 import CategoryList from "../components/admin/CategoryList";
 import SearchPanel from "../componentsNew/SearchPanel";
+import CartSection from "../componentsNew/CartSection";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -88,6 +89,9 @@ const Layout = () => {
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
+          {window.innerWidth < 448 && (
+            <Route path="/cart" element={<CartSection />} />
+          )}
           <Route path="/shop" element={<Shop />}>
             <Route path=":sku?/:name?" element={<DisplayProduct />} />
           </Route>

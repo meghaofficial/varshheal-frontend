@@ -1,6 +1,7 @@
 import { FaArrowRightLong } from "react-icons/fa6";
+import Card from "../small/Card";
 import { FaPlay } from "react-icons/fa";
-import Card from "./Card";
+
 
 const NewBanner = () => {
   return (

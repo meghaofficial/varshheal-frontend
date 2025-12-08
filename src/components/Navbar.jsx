@@ -1,17 +1,63 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 import { PiShoppingCartSimple, PiUserLight } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import SearchPanel from "../componentsNew/SearchPanel";
+import CartSection from "../componentsNew/CartSection";
 
 const Navbar = ({ openSearch, setOpenSearch }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+  const [openCart, setOpenCart] = useState(false);
+  const [activeComp, setActiveComp] = useState(null);
+
+  useEffect(() => {
+    if (openMenu) {
+      setActiveComp({
+        open: openMenu,
+        setOpen: setOpenMenu,
+        comp: <div className="flex flex-col items-center justify-evenly h-full playfair">
+                <p className={`text-left w-full ps-10`}>Profile</p>
+                <p className={`text-left w-full ps-10`}>Collections</p>
+                <p className={`text-left w-full ps-10`}>About</p>
+                <p className={`text-left w-full ps-10`}>Contact</p>
+                <p className={`text-left w-full ps-10`} onClick={() => {
+                  navigate("/cart");
+                  setOpenMenu(false);
+                }}>Cart</p>
+              </div>,
+        left: true,
+      });
+      return;
+    }
+    else if (openSearch) {
+      setActiveComp({
+        open: openSearch,
+        setOpen: setOpenSearch,
+        comp: <SearchPanel setOpenSearch={setOpenSearch} />,
+        left: false
+      });
+      return;
+    }
+    else if (openCart) {
+      setActiveComp({
+        open: openCart,
+        setOpen: setOpenCart,
+        comp: <CartSection setOpenCart={setOpenCart} />,
+        left: false
+      });
+      return;
+    }
+    else {
+      setActiveComp(null);
+      return;
+    }
+  }, [openSearch, openMenu, openCart]);
 
   return (
     <div
@@ -53,37 +99,12 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
           size={20}
           onClick={() => setOpenSearch(true)}
         />
-        {/* search for lg screen */}
-        {/* Dark Overlay */}
-        <AnimatePresence>
-          {openSearch && (
-            <motion.div
-              className="fixed inset-0 bg-black/70 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpenSearch(false)}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Sidebar Content */}
-        <AnimatePresence>
-          {openSearch && (
-            <motion.div
-              className="fixed top-0 right-0 w-[40%] h-full bg-white z-50 flex flex-col"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.4 }}
-            >
-              <SearchPanel setOpenSearch={setOpenSearch} />
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* cart for lg */}
-        <div className="relative cursor-pointer md:block hidden me-1">
+        <div
+          className="relative cursor-pointer md:block hidden me-1"
+          onClick={() => setOpenCart(true)}
+        >
           <PiShoppingCartSimple />
           <span
             className={`bg-black text-white rounded-full absolute -top-[9px] -right-[9px] text-[8px] flex items-center justify-center min-w-3 min-h-3`}
@@ -92,7 +113,10 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
           </span>
         </div>
         {/* profile for lg */}
-        <PiUserLight className="relative cursor-pointer md:block hidden" strokeWidth={2} />
+        <PiUserLight
+          className="relative cursor-pointer md:block hidden"
+          strokeWidth={2}
+        />
         {/* for sm */}
         <div className="md:hidden relative">
           <Menu
@@ -100,44 +124,46 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
             className="cursor-pointer"
             onClick={() => setOpenMenu((prev) => !prev)}
           />
-
-          {/* Dark Overlay */}
-          <AnimatePresence>
-            {openMenu && (
-              <motion.div
-                className="fixed inset-0 bg-black/70 z-40"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setOpenMenu(false)}
-              />
-            )}
-          </AnimatePresence>
-
-          {/* Sidebar Content */}
-          <AnimatePresence>
-            {openMenu && (
-              <motion.div
-                className="fixed top-0 left-0 w-[60%] h-full bg-white z-50 flex flex-col"
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ type: "tween", duration: 0.4 }}
-              >
-                <div className="flex flex-col items-center justify-evenly h-full playfair">
-                  <p className={`text-left w-full ps-10`}>Profile</p>
-                  <p className={`text-left w-full ps-10`}>Collections</p>
-                  <p className={`text-left w-full ps-10`}>About</p>
-                  <p className={`text-left w-full ps-10`}>Contact</p>
-                  <p className={`text-left w-full ps-10`}>Cart</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
+      
+      <SideBar open={activeComp?.open} setOpen={activeComp?.setOpen} comp={activeComp?.comp} left={activeComp?.left} />
     </div>
   );
 };
+
+function SideBar({ open, setOpen, comp, left }) {
+  return (
+    <>
+      {/* Dark Overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Sidebar Content */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className={`fixed top-0 ${left ? 'left-0 w-[60%]' : 'right-0 w-[40%]'} h-full bg-white z-50 flex flex-col`}
+            initial={{ x: left ? "-100%" : "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: left ? "-100%" : "100%" }}
+            transition={{ type: "tween", duration: 0.4 }}
+          >
+          {comp}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
 
 export default Navbar;

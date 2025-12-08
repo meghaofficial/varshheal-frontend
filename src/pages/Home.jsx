@@ -1,18 +1,9 @@
-import MainAdvertisement from "../components/MainAdvertisement";
-import PopularCategories from "../components/PopularCategories";
-import LatestOfferComp from "../components/LatestOfferComp";
-import Button from "../components/Button";
-import BannerSlider from "../components/BannerSlider";
-import BannerVideo from "../components/BannerVideo";
-import Loader from "../components/Loader";
-import { toastError, toastSuccess } from "../utils/toast";
-import Banner from "./Banner";
-import NewBanner from "../componentsNew/NewBanner";
-import NewCollection from "../componentsNew/NewCollection";
-import BagBranding from "../componentsNew/BagBranding";
-import DiscountSection from "../componentsNew/DiscountSection";
-import NeedUs from "../componentsNew/NeedUs";
-import Testimonial from "../componentsNew/Testimonial";
+import BagBranding from "../componentsNew/home/BagBranding";
+import DiscountSection from "../componentsNew/home/DiscountSection";
+import NeedUs from "../componentsNew/home/NeedUs";
+import NewBanner from "../componentsNew/home/NewBanner";
+import NewCollection from "../componentsNew/home/NewCollection";
+import Testimonial from "../componentsNew/home/Testimonial";
 
 const Home = () => {
   return (
