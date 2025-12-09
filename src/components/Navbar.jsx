@@ -21,39 +21,65 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
       setActiveComp({
         open: openMenu,
         setOpen: setOpenMenu,
-        comp: <div className="flex flex-col items-center justify-evenly h-full playfair">
-                <p className={`text-left w-full ps-10`}>Profile</p>
-                <p className={`text-left w-full ps-10`}>Collections</p>
-                <p className={`text-left w-full ps-10`}>About</p>
-                <p className={`text-left w-full ps-10`}>Contact</p>
-                <p className={`text-left w-full ps-10`} onClick={() => {
-                  navigate("/cart");
-                  setOpenMenu(false);
-                }}>Cart</p>
-              </div>,
+        comp: (
+          <div className="flex flex-col items-center justify-evenly h-full playfair">
+            <p className={`text-left w-full ps-10`}>Profile</p>
+            <p
+              className={`text-left w-full ps-10 ${
+                location.pathname.includes("collections") && "font-semibold"
+              }`}
+              onClick={() => {
+                navigate("/collections");
+                setOpenMenu(false);
+              }}
+            >
+              Collections
+            </p>
+            <p
+              className={`text-left w-full ps-10 ${
+                location.pathname.includes("about") && "font-semibold"
+              }`}
+              onClick={() => {
+                navigate("/about");
+                setOpenMenu(false);
+              }}
+            >
+              About
+            </p>
+            <p className={`text-left w-full ps-10`}>Contact</p>
+            <p
+              className={`text-left w-full ps-10 ${
+                location.pathname.includes("cart") && "font-semibold"
+              }`}
+              onClick={() => {
+                navigate("/cart");
+                setOpenMenu(false);
+              }}
+            >
+              Cart
+            </p>
+          </div>
+        ),
         left: true,
       });
       return;
-    }
-    else if (openSearch) {
+    } else if (openSearch) {
       setActiveComp({
         open: openSearch,
         setOpen: setOpenSearch,
         comp: <SearchPanel setOpenSearch={setOpenSearch} />,
-        left: false
+        left: false,
       });
       return;
-    }
-    else if (openCart) {
+    } else if (openCart) {
       setActiveComp({
         open: openCart,
         setOpen: setOpenCart,
         comp: <CartSection setOpenCart={setOpenCart} />,
-        left: false
+        left: false,
       });
       return;
-    }
-    else {
+    } else {
       setActiveComp(null);
       return;
     }
@@ -65,22 +91,42 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
       style={{ fontFamily: "Helvetica" }}
     >
       {/* logo */}
-      <img src="/images/logo.png" alt="logo" className="h-[50px]" />
+      <img
+        src="/images/logo.png"
+        alt="logo"
+        className="h-[50px] cursor-pointer"
+        onClick={() => navigate("/")}
+      />
 
       {/* nav links md */}
       <div className="text-[13px] w-[400px] md:flex hidden">
         <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
+          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center ${
+            location.pathname === "/" && "font-semibold"
+          }`}
+          onClick={() => {
+            navigate("/");
+          }}
         >
           Home
         </span>
         <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
+          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center ${
+            location.pathname.includes("collections") && "font-semibold"
+          }`}
+          onClick={() => {
+            navigate("/collections");
+          }}
         >
           Collections
         </span>
         <span
-          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center`}
+          className={`hover:font-bold cursor-pointer px-3 min-w-[100px] text-center ${
+            location.pathname.includes("about") && "font-semibold"
+          }`}
+          onClick={() => {
+            navigate("/about");
+          }}
         >
           About
         </span>
@@ -126,8 +172,13 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
           />
         </div>
       </div>
-      
-      <SideBar open={activeComp?.open} setOpen={activeComp?.setOpen} comp={activeComp?.comp} left={activeComp?.left} />
+
+      <SideBar
+        open={activeComp?.open}
+        setOpen={activeComp?.setOpen}
+        comp={activeComp?.comp}
+        left={activeComp?.left}
+      />
     </div>
   );
 };
@@ -152,13 +203,15 @@ function SideBar({ open, setOpen, comp, left }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className={`fixed top-0 ${left ? 'left-0 w-[60%]' : 'right-0 w-[40%]'} h-full bg-white z-50 flex flex-col`}
+            className={`fixed top-0 ${
+              left ? "left-0 w-[60%]" : "right-0 w-[40%]"
+            } h-full bg-white z-50 flex flex-col`}
             initial={{ x: left ? "-100%" : "100%" }}
             animate={{ x: 0 }}
             exit={{ x: left ? "-100%" : "100%" }}
             transition={{ type: "tween", duration: 0.4 }}
           >
-          {comp}
+            {comp}
           </motion.div>
         )}
       </AnimatePresence>

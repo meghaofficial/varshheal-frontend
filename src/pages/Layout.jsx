@@ -22,6 +22,7 @@ import React, { useState } from "react";
 import CategoryList from "../components/admin/CategoryList";
 import SearchPanel from "../componentsNew/SearchPanel";
 import CartSection from "../componentsNew/CartSection";
+import Collections from "../componentsNew/Collections";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -92,6 +93,7 @@ const Layout = () => {
           {window.innerWidth < 448 && (
             <Route path="/cart" element={<CartSection />} />
           )}
+          <Route path="/collections" element={<Collections />} />
           <Route path="/shop" element={<Shop />}>
             <Route path=":sku?/:name?" element={<DisplayProduct />} />
           </Route>

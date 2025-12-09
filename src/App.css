@@ -82,3 +82,16 @@ body {
     opacity: 1;
   }
 }
+
+.hide-scrollbar {
+  /* For Firefox */
+  scrollbar-width: none;
+
+  /* For IE, Edge */
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  /* For Chrome, Safari, and Opera */
+  display: none;
+}

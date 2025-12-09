@@ -5,7 +5,7 @@ const About = () => {
       <div className="flex md:flex-row flex-col items-center justify-evenly md:pt-10 pt-5 md:px-10 px-5 md:gap-10 gap-5 mb-10" data-aos="fade-up" data-aos-duration='1500'>
         {/* left */}
         <div className="md:w-1/2 flex flex-col items-start">
-          <span className="cursive text-[50px] playfair ms-[-5px] ms-[-5px]">
+          <span className="cursive text-[50px] playfair ms-[-5px]">
             Our Story
           </span>
           {/* <span className='heading text-[35px] font-semibold -mt-[15px]'>Boutique</span> */}
