@@ -114,7 +114,7 @@ const Collections = () => {
         </div>
       </div>
       {/* for lg screen */}
-      <div className="relative w-full h-full mt-3 md:block hidden">
+      <div className="relative w-full h-full mt-3 mb-10 md:block hidden">
         {/* Visible Section */}
         <div className="w-full h-full flex items-center justify-center">
           <AnimatePresence mode="wait">

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ images }) => {
   const [current, setCurrent] = useState(0);
   const interval = 3000;
   const imgRef = useRef(null);
+  const navigate = useNavigate();
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
 
@@ -65,7 +67,7 @@ const ProductCard = ({ images }) => {
             Rs.200
           </p>
         </div>
-        <div className="rounded-full p-3 bg-[#f0f0f0] cursor-pointer hover:bg-[#ffecee]">
+        <div className="rounded-full p-3 bg-[#f0f0f0] cursor-pointer hover:bg-[#ffecee]" onClick={() => navigate("/product-name")}>
           <GoArrowUpRight />
         </div>
       </div>

@@ -23,6 +23,7 @@ import CategoryList from "../components/admin/CategoryList";
 import SearchPanel from "../componentsNew/SearchPanel";
 import CartSection from "../componentsNew/CartSection";
 import Collections from "../componentsNew/Collections";
+import ProductPage from "../componentsNew/ProductPage";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -94,6 +95,7 @@ const Layout = () => {
             <Route path="/cart" element={<CartSection />} />
           )}
           <Route path="/collections" element={<Collections />} />
+          <Route path="/:productSlug" element={<ProductPage />} />
           <Route path="/shop" element={<Shop />}>
             <Route path=":sku?/:name?" element={<DisplayProduct />} />
           </Route>

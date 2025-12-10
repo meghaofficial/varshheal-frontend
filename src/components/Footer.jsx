@@ -7,7 +7,8 @@ const Footer = () => {
   const location = useLocation();
 
   return (
-    <footer className={`bg-[#0c0c0c] text-white flex md:flex-row flex-col ${location.pathname.includes("collections") ? 'md:mt-20' : 'md:mt-30'}`}>
+    <footer className={`bg-[#0c0c0c] text-white flex md:flex-row flex-col`}>
+    {/* ${location.pathname.includes("collections") ? 'md:mt-20' : 'md:mt-30'} */}
       {/* left */}
       <div className="md:border-r border-[#181818] md:w-[60%] w-full">
         {/* top */}
