@@ -35,7 +35,7 @@ const ShopSidebar = ({
   return (
     <div className="relative rounded-[20px] shadow-lg shadow-geay-100 overflow-y-auto p-6 h-full">
       <span
-        className="absolute right-4 top-7.5 text-[12px] cursor-pointer text-red-500"
+        className="absolute right-4 top-7.5  cursor-pointer text-red-500"
         onClick={() => {
           // setCatName("");
           clearAllFilters();

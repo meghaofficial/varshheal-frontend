@@ -10,7 +10,7 @@ const BagBranding = () => {
         <div className="rounded h-1 w-10 bg-black absolute -right-12 bottom-10"></div>
         <div className="flex items-center gap-3">
           <div className="w-[30px] h-[1px] bg-[#464646]"></div>
-          <p className="text-[12px] text-[#464646]">EXCELLENT QUALITY</p>
+          <p className=" text-[#464646]">EXCELLENT QUALITY</p>
         </div>
         <button className="rounded-md bg-black text-white cursor-pointer px-9 py-2 text-[14px] absolute -bottom-20">
           View Article
@@ -19,7 +19,7 @@ const BagBranding = () => {
       {/* for lg screen */}
       <div className="md:hidden relative">
         <p className="text-[50px]/15">BAG Branding</p>
-        <div className="rounded h-1 w-10 bg-black absolute right-6 bottom-6"></div>
+        <div className="rounded h-1 w-10 bg-black absolute right-6 bottom-6 md:block hidden"></div>
       </div>
       <img
         src="/images/bag4photo.jpg"

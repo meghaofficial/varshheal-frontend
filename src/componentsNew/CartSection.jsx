@@ -15,7 +15,7 @@ const CartSection = ({ setOpenCart }) => {
           <CartItem />
         </div>
       ))}
-      <button className="mt-5 w-full bg-black text-white rounded-md py-3 cursor-pointer text-[12px]">CHECK OUT</button>
+      <button className="mt-5 w-full bg-black text-white rounded-md py-3 cursor-pointer ">CHECK OUT</button>
     </div>
   );
 };
@@ -36,22 +36,22 @@ function CartItem() {
               <div className="bg-[#f89d8e] text-white cursor-pointer p-1 rounded-full">
                 <PiMinus size={12} />
               </div>
-              <span className="text-[12px]">1</span>
+              <span className="">1</span>
               <div className="bg-[#f89d8e] text-white cursor-pointer p-1 rounded-full">
                 <PiPlus size={12} />
               </div>
             </div>
-            <p className="text-[12px]">
+            <p className="">
               <span className="font-semibold">Price:</span>{" "}
               <span>Rs. 1200</span>
             </p>
-            <p className="text-[12px] -mt-2">
+            <p className=" -mt-2">
               <span className="font-semibold">Total:</span>{" "}
               <span>Rs. 1200</span>
             </p>
           </div>
         </div>
-        <button className="text-red-600 cursor-pointer hover:underline text-[12px] absolute bottom-3 right-3">
+        <button className="text-red-600 cursor-pointer hover:underline  absolute bottom-3 right-3">
           Remove
         </button>
         <FiExternalLink className="cursor-pointer absolute right-3 top-3" />

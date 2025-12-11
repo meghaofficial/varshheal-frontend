@@ -47,7 +47,7 @@ const NeedUs = () => {
         <input
           type="text"
           placeholder="Enter your Email"
-          className="outline-none p-3 text-[12px] rounded-md border border-[#464646] mt-5 w-60"
+          className="outline-none p-3  rounded-md border border-[#464646] mt-5 w-60"
         />
         <button className="rounded-md bg-black text-white cursor-pointer px-9 py-2 text-[14px] mt-4">
           Contact Us

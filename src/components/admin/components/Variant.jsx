@@ -226,7 +226,7 @@ const Variant = ({ initialTabs, form, setForm, id }) => {
               >
                 {/* Title */}
                 <span
-                  className={`text-[12px] text-gray-700 truncate ${
+                  className={` text-gray-700 truncate ${
                     isActive ? "font-medium" : "font-normal"
                   }`}
                 >
@@ -272,7 +272,7 @@ const Variant = ({ initialTabs, form, setForm, id }) => {
             {/* Color name + Color code */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="text-[12px] font-medium text-gray-700">
+                <label className=" font-medium text-gray-700">
                   Color Name <span className="text-red-600">*</span>
                 </label>
                 <input
@@ -287,7 +287,7 @@ const Variant = ({ initialTabs, form, setForm, id }) => {
               </div>
 
               <div>
-                <label className="text-[12px] font-medium text-gray-700">
+                <label className=" font-medium text-gray-700">
                   Color Code
                 </label>
                 <input
@@ -304,7 +304,7 @@ const Variant = ({ initialTabs, form, setForm, id }) => {
 
             {/* stock */}
             <div className="mt-4">
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Stock <span className="text-red-600">*</span>
               </label>
               <input
@@ -337,7 +337,7 @@ const Variant = ({ initialTabs, form, setForm, id }) => {
             )}
             {/* images */}
             <div className="mt-3">
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Add Image
               </label>
               <div className="flex items-center gap-2">

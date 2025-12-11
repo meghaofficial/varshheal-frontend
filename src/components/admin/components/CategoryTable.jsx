@@ -22,7 +22,7 @@ const CategoryTable = ({ categories, setActive, setOpenCreate }) => {
   };
 
   return (
-    <div className="overflow-x-auto text-[12px]">
+    <div className="overflow-x-auto ">
       {categories?.length > 0 ? (
         <table className="min-w-full border border-gray-200 overflow-hidden">
           {/* Header */}

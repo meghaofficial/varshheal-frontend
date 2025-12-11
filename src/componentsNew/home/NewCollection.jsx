@@ -55,7 +55,7 @@ const NewCollection = () => {
         <p className="playfair font-bold text-[40px]/13 md:block hidden">
           Check Out Our New Collections
         </p>
-        <p className="text-[#464646] text-[12px] md:w-[60%] md:mt-3 mt-5">
+        <p className="text-[#464646]  md:w-[60%] md:mt-3 mt-5">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita
           magnam dicta illo voluptas facere maiores beatae praesentium
           voluptatibus ut laboriosam eligendi iusto quas fuga molestiae dolore
@@ -64,11 +64,11 @@ const NewCollection = () => {
         <div className="mt-5 flex flex-col gap-3">
           <div className="flex items-center gap-3">
             <FaCheckCircle className="text-[#e1735f]" />
-            <p className="text-[12px] font-bold">1year+ gurantee</p>
+            <p className=" font-bold">1year+ gurantee</p>
           </div>
           <div className="flex items-center gap-3">
             <FaCheckCircle className="text-[#e1735f]" />
-            <p className="text-[12px] font-bold">Genuine Leather</p>
+            <p className=" font-bold">Genuine Leather</p>
           </div>
         </div>
         {/* button */}

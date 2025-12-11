@@ -22,7 +22,7 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
         open: openMenu,
         setOpen: setOpenMenu,
         comp: (
-          <div className="flex flex-col items-center justify-evenly h-full playfair">
+          <div className="flex flex-col items-center justify-center gap-12 ps-8 h-full playfair">
             <p className={`text-left w-full ps-10`}>Profile</p>
             <p
               className={`text-left w-full ps-10 ${

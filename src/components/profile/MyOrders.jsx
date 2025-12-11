@@ -164,7 +164,7 @@ const MyOrders = () => {
               <div>
                 <p className="text-sm truncate">{order?.title}</p>
                 {order?.color && (
-                  <p className="text-[12px] text-gray-500">
+                  <p className=" text-gray-500">
                     Color: {order?.color}
                   </p>
                 )}
@@ -186,7 +186,7 @@ const MyOrders = () => {
                   {order?.statusType} on {order?.date}
                 </p>
               </div>
-              <p className="text-[12px] mt-2 font-[300]">{order?.message}</p>
+              <p className=" mt-2 font-[300]">{order?.message}</p>
               {/* rate n review product */}
               <div
                 className="text-blue-600 text-sm flex items-center gap-1 group mt-2"

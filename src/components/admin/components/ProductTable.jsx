@@ -23,7 +23,7 @@ const ProductTable = ({ products, setActive, setOpenCreate, fetchProducts }) => 
   };
 
   return (
-    <div className="overflow-x-auto text-[12px]">
+    <div className="overflow-x-auto ">
       {products?.length > 0 ? (
         <table className="min-w-full border border-gray-200 overflow-hidden">
           {/* Header */}

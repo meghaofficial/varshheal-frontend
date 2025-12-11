@@ -123,7 +123,7 @@ const ProductDescription = ({ form, setForm, active }) => {
               e.preventDefault();
               switchTab(tab);
             }}
-            className={`px-3 py-1.5 rounded cursor-pointer text-[12px] font-medium capitalize transition 
+            className={`px-3 py-1.5 rounded cursor-pointer  font-medium capitalize transition 
               ${
                 activeTab === tab
                   ? "bg-blue-600 text-white"
@@ -139,7 +139,7 @@ const ProductDescription = ({ form, setForm, active }) => {
       <div className="px-2">
         {activeTab === "paragraph" && (
           <div>
-            <label className="block text-[12px] font-medium mb-1">
+            <label className="block  font-medium mb-1">
               Description (Paragraph)
             </label>
             <textarea
@@ -155,7 +155,7 @@ const ProductDescription = ({ form, setForm, active }) => {
                   },
                 }));
               }}
-              className="w-full border border-gray-200 rounded p-2 text-[12px] focus:ring-2 focus:ring-blue-400 outline-none"
+              className="w-full border border-gray-200 rounded p-2  focus:ring-2 focus:ring-blue-400 outline-none"
               placeholder="Write a detailed description..."
             />
           </div>
@@ -163,7 +163,7 @@ const ProductDescription = ({ form, setForm, active }) => {
 
         {activeTab === "points" && (
           <div>
-            <label className="block text-[12px] font-medium mb-2">
+            <label className="block  font-medium mb-2">
               Description Points
             </label>
             <div className="space-y-3">
@@ -173,11 +173,11 @@ const ProductDescription = ({ form, setForm, active }) => {
                     type="text"
                     value={point}
                     onChange={(e) => updatePoint(idx, e.target.value)}
-                    className="flex-1 border border-gray-200 rounded p-2 text-[12px] focus:ring-2 focus:ring-blue-400 outline-none"
+                    className="flex-1 border border-gray-200 rounded p-2  focus:ring-2 focus:ring-blue-400 outline-none"
                     placeholder={`Point ${idx + 1}`}
                   />
                   <button
-                    className="text-red-500 cursor-pointer text-[12px] hover:underline"
+                    className="text-red-500 cursor-pointer  hover:underline"
                     onClick={(e) => {
                       e.preventDefault();
                       removePoint(idx);
@@ -190,7 +190,7 @@ const ProductDescription = ({ form, setForm, active }) => {
 
               <button
                 onClick={addPoint}
-                className="text-blue-600 cursor-pointer mb-2 text-[12px] font-medium hover:underline"
+                className="text-blue-600 cursor-pointer mb-2  font-medium hover:underline"
               >
                 + Add Point
               </button>
@@ -200,7 +200,7 @@ const ProductDescription = ({ form, setForm, active }) => {
 
         {activeTab === "specs" && (
           <div>
-            <label className="block text-[12px] font-medium mb-2">
+            <label className="block  font-medium mb-2">
               Specifications (Key - Value)
             </label>
 
@@ -211,19 +211,19 @@ const ProductDescription = ({ form, setForm, active }) => {
                     type="text"
                     value={spec.key}
                     onChange={(e) => updateSpecKey(idx, e.target.value)}
-                    className="w-1/3 border border-gray-200 rounded p-2 text-[12px] focus:ring-2 focus:ring-blue-400 outline-none"
+                    className="w-1/3 border border-gray-200 rounded p-2  focus:ring-2 focus:ring-blue-400 outline-none"
                     placeholder="Key (e.g., Material)"
                   />
                   <input
                     type="text"
                     value={spec.value}
                     onChange={(e) => updateSpecValue(idx, e.target.value)}
-                    className="flex-1 border border-gray-200 rounded p-2 text-[12px] focus:ring-2 focus:ring-blue-400 outline-none"
+                    className="flex-1 border border-gray-200 rounded p-2  focus:ring-2 focus:ring-blue-400 outline-none"
                     placeholder="Value (e.g., Stainless Steel)"
                   />
 
                   <button
-                    className="text-red-500 cursor-pointer text-[12px] hover:underline"
+                    className="text-red-500 cursor-pointer  hover:underline"
                     onClick={() => removeSpec(idx)}
                   >
                     Remove
@@ -233,7 +233,7 @@ const ProductDescription = ({ form, setForm, active }) => {
 
               <button
                 onClick={addSpec}
-                className="text-blue-600 mb-2 cursor-pointer text-[12px] font-medium hover:underline"
+                className="text-blue-600 mb-2 cursor-pointer  font-medium hover:underline"
               >
                 + Add Spec
               </button>

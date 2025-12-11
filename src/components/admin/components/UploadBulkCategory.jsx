@@ -133,9 +133,9 @@ const UploadBulkCategory = ({ setOpenBulk }) => {
                         alt=""
                         className="h-10 w-10 rounded-md"
                       />
-                      <p className="text-[12px]">{d.name}</p>
+                      <p className="">{d.name}</p>
                     </div>
-                    <p className="p-2 text-gray-500 text-[12px] border-b border-gray-200 h-24 overflow-y-auto">
+                    <p className="p-2 text-gray-500  border-b border-gray-200 h-24 overflow-y-auto">
                       {d.description}
                     </p>
                     <div className="flex items-center justify-between h-12 p-2">

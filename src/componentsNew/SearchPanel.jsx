@@ -13,7 +13,7 @@ const SearchPanel = ({ setOpenSearch }) => {
           <input
             type="text"
             placeholder="Search"
-            className="p-4 poppins text-[12px] w-full outline-none"
+            className="p-4 poppins  w-full outline-none"
             onChange={(e) => setQuery(e.target.value)}
             value={query}
           />
@@ -34,7 +34,7 @@ const SearchPanel = ({ setOpenSearch }) => {
             alt="bag"
             className="h-10 w-15 object-cover"
           />
-          <p className="text-[12px]">Something called bag</p>
+          <p className="">Something called bag</p>
         </div>
       </div>
     </div>

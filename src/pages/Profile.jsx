@@ -97,7 +97,7 @@ const Profile = () => {
           <Link
             to="/admin-dashboard"
             target="_blank"
-            className="bg-white shadow shadow-gray-300 rounded p-4 flex items-center gap-3 text-[12px]"
+            className="bg-white shadow shadow-gray-300 rounded p-4 flex items-center gap-3 "
           >
             Open Admin Dashboard
           </Link>
@@ -156,7 +156,7 @@ function SideSection({ icon, name, menus }) {
       <div>
         {menus.map((menu, index) => (
           <p
-            className={`text-[12px] py-3 px-5 
+            className={` py-3 px-5 
             ${
               location.pathname === "/account" &&
               menu === "Profile Information" &&

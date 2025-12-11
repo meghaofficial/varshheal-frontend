@@ -85,7 +85,7 @@ const CategoryList = () => {
               />
             </div>
             <button
-              className="rounded bg-blue-500 text-[12px] text-white py-1.5 px-3 cursor-pointer"
+              className="rounded bg-blue-500  text-white py-1.5 px-3 cursor-pointer"
               onClick={() => setOpenBulk(true)}
             >
               Upload in Bulk

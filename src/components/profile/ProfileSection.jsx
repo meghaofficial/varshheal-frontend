@@ -56,7 +56,7 @@ function PersonalInformation({ user }) {
       <div className="flex items-baseline gap-8">
         <p className="font-[600] text-lg">Personal Information</p>
         {/* <p
-          className="text-blue-600 text-[12px] font-semibold cursor-pointer select-none"
+          className="text-blue-600  font-semibold cursor-pointer select-none"
           onClick={() => setIsEdit((prev) => !prev)}
         >
           {isEdit ? 'Cancel' : 'Edit'}
@@ -76,7 +76,7 @@ function PersonalInformation({ user }) {
               id="firstName"
               type="text"
               value={name?.fname}
-              className="w-full text-black uppercase focus:outline-none text-[12px]"
+              className="w-full text-black uppercase focus:outline-none "
               onChange={(e) => setName(prev => ({ ...prev, fname: e.target.value }))}
             />
           </div>
@@ -100,7 +100,7 @@ function PersonalInformation({ user }) {
               id="lastName"
               type="text"
               value={name?.lname}
-              className="w-full text-black uppercase focus:outline-none text-[12px]"
+              className="w-full text-black uppercase focus:outline-none "
               onChange={(e) => setName(prev => ({ ...prev, lname: e.target.value }))}
             />
           </div>
@@ -113,7 +113,7 @@ function PersonalInformation({ user }) {
         )}
       </div>
       {/* <p className="text-sm mt-4">Your Gender</p>
-      <div className="text-[12px] text-gray-500 flex items-center gap-4 mt-2">
+      <div className=" text-gray-500 flex items-center gap-4 mt-2">
         <div className="flex items-center gap-3">
           {isEdit ? (
             <input type="radio" name="gender" onChange={(e) => setFormData(prev => ({ ...prev, gender: e.target.value }))} value="male" checked={formData?.gender === "male"} />
@@ -152,7 +152,7 @@ function EmailAddress({ user }) {
       <div className="flex items-baseline gap-8">
         <p className="font-[600] text-lg">Email Address</p>
         {/* <p
-          className="text-blue-600 text-[12px] font-semibold cursor-pointer"
+          className="text-blue-600  font-semibold cursor-pointer"
           onClick={() => setIsEdit((prev) => !prev)}
         >
           Edit
@@ -170,7 +170,7 @@ function EmailAddress({ user }) {
             id="firstName"
             type="text"
             value={email}
-            className="w-full text-black focus:outline-none text-[12px]"
+            className="w-full text-black focus:outline-none "
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>

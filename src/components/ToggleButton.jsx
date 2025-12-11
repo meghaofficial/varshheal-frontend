@@ -62,7 +62,7 @@ export default function ToggleButton({ status, productId, show }) {
           </button>
         )}
 
-        <p className="pl-2 mt-2 font-medium text-[12px]">
+        <p className="pl-2 mt-2 font-medium ">
           Status:{" "}
           <span className="font-bold">{enabled ? "Published" : "Draft"}</span>
         </p>

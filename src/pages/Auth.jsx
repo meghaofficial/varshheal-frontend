@@ -358,7 +358,7 @@ export default function Auth() {
           </div>
         </div>
 
-        <div className="mb-7 md:mt-2 text-[12px] flex items-center justify-center gap-4 md:w-full w-[70%]">
+        <div className="mb-7 md:mt-2  flex items-center justify-center gap-4 md:w-full w-[70%]">
           <div className="w-[150px] h-[1px] bg-gray-200"></div>
           <p className="text-gray-300">OR</p>
           <div className="w-[150px] h-[1px] bg-gray-200"></div>

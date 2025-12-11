@@ -30,7 +30,7 @@ const ProductPage = () => {
         <div className={`w-1/2 flex flex-col px-20`}>
           <div className="flex items-center gap-3">
             <span
-              className="text-[12px] cursor-pointer hover:underline"
+              className=" cursor-pointer hover:underline"
               onClick={() => navigate("/collections")}
             >
               COLLECTIONS
@@ -40,7 +40,7 @@ const ProductPage = () => {
               strokeWidth="0px"
               size={20}
             />
-            <span className="text-[12px]">COATS</span>
+            <span className="">COATS</span>
           </div>
           <p className="playfair text-[60px]/15 w-[600px] mt-10">
             Nicole full length trench coat
@@ -183,7 +183,7 @@ const ProductPage = () => {
         {/* header (collections->category) */}
         <div className="flex items-center gap-3 px-5 mt-4">
           <span
-            className="text-[12px] cursor-pointer hover:underline"
+            className=" cursor-pointer hover:underline text-[13px]"
             onClick={() => navigate("/collections")}
           >
             COLLECTIONS
@@ -193,7 +193,7 @@ const ProductPage = () => {
             strokeWidth="0px"
             size={20}
           />
-          <span className="text-[12px]">COATS</span>
+          <span className="text-[13px]">COATS</span>
         </div>
         {/* images */}
         <div className="mt-7 px-5">
@@ -322,7 +322,7 @@ const ProductPage = () => {
                       : "max-h-[80px] overflow-y-hidden"
                   }`}
                 >
-                  <p className="text-[12px]">
+                  <p className="">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                     Neque accusamus unde, ea totam, placeat officiis deleniti
                     accusantium ab pariatur doloribus nesciunt ex maiores itaque

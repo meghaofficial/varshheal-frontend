@@ -216,7 +216,7 @@ const UploadBulkProduct = ({ setOpenBulk }) => {
                     <div className="overflow-y-auto p-3 flex flex-col gap-3">
                       {d.variants.map((v, index) => (
                         <div
-                          className="shadow rounded border border-gray-200 p-2 text-[12px]"
+                          className="shadow rounded border border-gray-200 p-2 "
                           key={index}
                         >
                           {/* images */}

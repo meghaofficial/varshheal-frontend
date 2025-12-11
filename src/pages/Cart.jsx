@@ -189,7 +189,7 @@ const DetailForLg = ({ index, d }) => {
         />
         <div className="flex flex-col justify-evenly">
           <span className="text-[14px]">{d?.product?.name}</span>
-          {/* <span className="text-gray-500 text-[12px]">Jwellery</span> */}
+          {/* <span className="text-gray-500 ">Jwellery</span> */}
           <span className="text-red-500 cursor-pointer text-[10px] ">
             Remove
           </span>

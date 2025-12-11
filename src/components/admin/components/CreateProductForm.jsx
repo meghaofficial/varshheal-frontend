@@ -155,7 +155,7 @@ const CreateProductForm = ({ setOpenCreate, setActive, active }) => {
           {/* Name + Brand */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Product Name <span className="text-red-600">*</span>
               </label>
               <input
@@ -170,7 +170,7 @@ const CreateProductForm = ({ setOpenCreate, setActive, active }) => {
             </div>
 
             <div>
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Brand
               </label>
               <input
@@ -224,7 +224,7 @@ const CreateProductForm = ({ setOpenCreate, setActive, active }) => {
           {/* Price + Discounted % */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Price <span className="text-red-600">*</span>
               </label>
               <input
@@ -239,7 +239,7 @@ const CreateProductForm = ({ setOpenCreate, setActive, active }) => {
             </div>
 
             <div>
-              <label className="text-[12px] font-medium text-gray-700">
+              <label className=" font-medium text-gray-700">
                 Discount %
               </label>
               <input

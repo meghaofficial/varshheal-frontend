@@ -10,7 +10,7 @@ const NewBanner = () => {
       <div className="w-1/2 md:flex hidden items-center justify-center relative">
         {/* upper line indicator */}
         <div className="absolute w-full top-32 left-12">
-          <div className="w-[120px] text-[12px] flex flex-col gap-2">
+          <div className="w-[120px]  flex flex-col gap-2">
             <p className="font-bold text-right text-nowrap">GENUINE LEATHER</p>
             <p className="text-[#464646] text-right">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -52,7 +52,7 @@ const NewBanner = () => {
 
         {/* lower line indicator */}
         <div className="absolute w-full -bottom-6 left-12">
-          <div className="w-[120px] absolute right-4 bottom-4 text-[12px]">
+          <div className="w-[120px] absolute right-4 bottom-4 ">
             <p className="text-[#464646]">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -77,21 +77,21 @@ const NewBanner = () => {
         </div>
         {/* shop now */}
         <div className="md:absolute top-70 left-30 flex items-center gap-6 md:mt-0 mt-5">
-          <button className="bg-black text-white rounded-lg py-3 text-[12px] tracking-wide px-6 cursor-pointer">
+          <button className="bg-black text-white rounded-lg py-3  tracking-wide px-6 cursor-pointer">
             Show Now
           </button>
           <div className="flex items-center gap-2">
             <div className="rounded-full border border-[#dddddd] p-3 flex items-center justify-center cursor-pointer">
               <FaPlay />
             </div>
-            <span className="text-[12px]">Watch Video</span>
+            <span className="">Watch Video</span>
           </div>
         </div>
 
         {/* try now section */}
         <div className="md:absolute bottom-28 left-30 md:w-[80%] md:mt-0 mt-12">
           <div className="flex items-center gap-2">
-            <span className="text-[12px] text-nowrap">TRY NOW</span>
+            <span className=" text-nowrap">TRY NOW</span>
             <div className="flex items-center">
               <div className="w-[200px] bg-black rounded-full h-[2px]"></div>
               <FaArrowRightLong strokeWidth={3} className="ml-[-2px]" />

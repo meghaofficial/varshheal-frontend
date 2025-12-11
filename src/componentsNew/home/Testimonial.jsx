@@ -71,7 +71,7 @@ const Testimonial = () => {
           You can help us to improve our productivity
         </p>
 
-        <p className="text-[#c2c2c2] text-[12px] mt-4">
+        <p className="text-[#c2c2c2]  mt-4">
           {testimonials?.[index]?.message}
         </p>
         <div className="mt-8 flex items-center">
@@ -81,7 +81,7 @@ const Testimonial = () => {
             className="rounded-full h-10 w-10"
           />
           <div className="flex flex-col ms-4">
-            <span className="font-bold text-[12px]">{testimonials?.[index]?.name}</span>
+            <span className="font-bold ">{testimonials?.[index]?.name}</span>
             <div className="flex items-center mt-1">
               <TiStarFullOutline className="text-[#ffc833]" />
               <TiStarFullOutline className="text-[#ffc833]" />
