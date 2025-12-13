@@ -95,3 +95,10 @@ body {
   /* For Chrome, Safari, and Opera */
   display: none;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}

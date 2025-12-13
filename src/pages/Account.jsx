@@ -16,7 +16,7 @@ const links = [
   { icon: <FiHeadphones size={22} />, label: "Help Center", route: "help" },
 ];
 
-const Profile = () => {
+const Account = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -179,4 +179,4 @@ function SideSection({ icon, name, menus }) {
   );
 }
 
-export default Profile;
+export default Account;

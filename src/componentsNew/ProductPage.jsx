@@ -250,7 +250,7 @@ const ProductPage = () => {
         <div className="flex items-center justify-between p-5 mt-3">
           {/* colors */}
           <div>
-            <p className="text-[#d1d1d1] text-[10px] mb-1.5">Available Colors</p>
+            <p className="text-[#d1d1d1] text-[14px] mb-1.5">Available Colors</p>
             <div className="flex items-center gap-2">
               <div
                 className={`h-6 w-6 cursor-pointer p-[2px] flex items-center justify-center rounded-full ${

@@ -7,7 +7,6 @@ import Shop from "./Shop";
 import DisplayProduct from "./DisplayProduct";
 import Contact from "./Contact";
 import Cart from "./Cart";
-import Profile from "./Profile";
 import Checkout from "./Checkout";
 import Auth from "./Auth";
 import { useSelector } from "react-redux";
@@ -24,6 +23,8 @@ import SearchPanel from "../componentsNew/SearchPanel";
 import CartSection from "../componentsNew/CartSection";
 import Collections from "../componentsNew/Collections";
 import ProductPage from "../componentsNew/ProductPage";
+import Profile from "../componentsNew/Profile";
+import Account from "./Account";
 
 const PrivateRoute = ({ isAuthenticated, loading }) => {
   if (loading) {
@@ -95,10 +96,10 @@ const Layout = () => {
             <Route path="/cart" element={<CartSection />} />
           )}
           <Route path="/collections" element={<Collections />} />
-          <Route path="/:productSlug" element={<ProductPage />} />
-          <Route path="/shop" element={<Shop />}>
+          <Route path="/product/:productSlug" element={<ProductPage />} />
+          {/* <Route path="/shop" element={<Shop />}>
             <Route path=":sku?/:name?" element={<DisplayProduct />} />
-          </Route>
+          </Route> */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           {/* private routes */}
@@ -110,7 +111,8 @@ const Layout = () => {
               />
             }
           >
-            <Route path="/account" element={<Profile />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/account" element={<Account />}>
               <Route path="addresses" element={<Addresses />} />
               <Route path="orders/search?sq?" element={<MyOrders />} />
             </Route>

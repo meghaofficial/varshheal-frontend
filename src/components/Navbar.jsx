@@ -22,8 +22,11 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
         open: openMenu,
         setOpen: setOpenMenu,
         comp: (
-          <div className="flex flex-col items-center justify-center gap-12 ps-8 h-full playfair">
-            <p className={`text-left w-full ps-10`}>Profile</p>
+          <div className="flex flex-col items-center justify-evenly ps-8 h-full playfair">
+            <p className={`text-left w-full ps-10 ${location.pathname.includes("profile") && "font-semibold"}`} onClick={() => {
+              navigate("/profile");
+              setOpenMenu(false);
+            }}>Profile</p>
             <p
               className={`text-left w-full ps-10 ${
                 location.pathname.includes("collections") && "font-semibold"
@@ -162,6 +165,7 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
         <PiUserLight
           className="relative cursor-pointer md:block hidden"
           strokeWidth={2}
+          onClick={() => navigate("/profile")}
         />
         {/* for sm */}
         <div className="md:hidden relative">
