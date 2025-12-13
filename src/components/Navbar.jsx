@@ -22,7 +22,7 @@ const Navbar = ({ openSearch, setOpenSearch }) => {
         open: openMenu,
         setOpen: setOpenMenu,
         comp: (
-          <div className="flex flex-col items-center justify-evenly ps-8 h-full playfair">
+          <div className="flex flex-col items-center justify-evenly ps-5 h-full playfair">
             <p className={`text-left w-full ps-10 ${location.pathname.includes("profile") && "font-semibold"}`} onClick={() => {
               navigate("/profile");
               setOpenMenu(false);
